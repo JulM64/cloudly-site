@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Blog – Cloudly</title>
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --bg-soft:#f5f7fa;
+      --text:#1a1a1a;
+      --text-soft:#555;
+      --accent:#0066ff;
+      --accent-soft:#0af;
+    }
+    [data-theme="dark"]{
+      --bg:#0d0d0d;
+      --bg-soft:#181818;
+      --text:#e5e5e5;
+      --text-soft:#aaa;
+      --accent:#0af;
+      --accent-soft:#0066ff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      transition:background .4s,color .4s;
+      line-height:1.7;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:20px 8%;position:sticky;top:0;z-index:999;
+      background:rgba(255,255,255,.05);backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+    [data-theme="dark"] header{background:rgba(0,0,0,.25)}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.2rem}
+    nav ul{display:flex;gap:32px;list-style:none;align-items:center}
+    .btn-3d{
+      padding:12px 28px;border:none;border-radius:50px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      color:#fff;font-weight:600;letter-spacing:.5px;
+      box-shadow:0 8px 24px rgba(0,102,255,.35);
+      transition:transform .3s,box-shadow .3s;cursor:pointer;
+    }
+    .btn-3d:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,102,255,.45)}
+    .container{max-width:900px;margin:auto;padding:120px 8% 80px}
+    .hero-img{width:100%;border-radius:16px;margin-bottom:40px}
+    h1{font-size:2.25rem;margin-bottom:20px;letter-spacing:-.02em}
+    h2{font-size:1.75rem;margin:40px 0 16px}
+    p,li{margin-bottom:16px;color:var(--text-soft)}
+    pre{background:var(--bg-soft);padding:16px;border-radius:8px;overflow-x:auto}
+    code{background:var(--bg-soft);padding:2px 6px;border-radius:4px}
+    ul{margin-left:20px}
+    .back{margin-top:60px;display:inline-block}
+
+    /* fade-up */
+    .fade-up{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+    .fade-up.show{opacity:1;transform:none}
+
+    /* toast */
+    .toast{
+      position:fixed;top:20px;right:20px;padding:14px 22px;background:var(--accent);
+      color:#fff;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.2);
+      opacity:0;transition:opacity .4s;z-index:9999
+    }
+    /* ---------- RESPONSIVE FIXES ---------- */
+
+/* 1. NAVBAR COLLAPSE */
+@media (max-width: 992px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 5%;
+  }
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 12px;
+    gap: 12px;
+  }
+  .logo {
+    font-size: 1.1rem;
+  }
+}
+
+/* 2. HERO STACK & SPACING */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 100px 5% 40px;
+    gap: 40px;
+  }
+  .hero h1 { font-size: 2.2rem; }
+  .hero p  { margin: 16px auto 24px; }
+  .hero-img {
+    margin: 0 auto;
+    max-width: 90%;
+  }
+}
+/* ---------- RESPONSIVE – PHONES ≤ 400 px ---------- */
+@media (max-width: 400px) {
+  /* 1. VERTICAL / HAMBURGER NAV */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 16px;
+  }
+  .logo {
+    font-size: 1rem;
+  }
+  nav {
+    width: 100%;
+    margin-top: 8px;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.9rem;
+  }
+
+  /* 2. HERO SPACING for 360-375 px */
+  .hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 120px 16px 40px; /* 120 px top = nav + gap */
+    gap: 32px;
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .hero-img {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  /* 3. SMALLER BUTTONS & CARDS */
+  .btn-3d {
+    padding: 10px 22px;
+    font-size: 0.9rem;
+  }
+  .card {
+    padding: 20px 20px 100px;
+  }
+}
+  /* … all your existing styles … */
+
+  /* center nav links on every screen 
+  nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }*/
+
+  /* keep vertical stack for ≤ 400 px 
+  @media (max-width: 400px) {
+    nav ul {
+      flex-direction: column;
+      gap: 6px;
+    }
+  }*/
+  </style>
+</head>
+<body>
+  <!-- Header (identical to home) -->
+  <header>
+    <a href="index.html" class="logo">
+      <img src="images/cloudly-logo-simplified01.png" width="32" alt="Cloudly"/>
+      Cloudly
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><button class="btn-3d" id="themeToggle">🌙</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Blog Content Area -->
+  <main class="container fade-up" id="blogContent">
+    <!-- Default / fallback post -->
+    <article>
+      <img src="images/archive1.jpg" alt="Cover" class="hero-img"/>
+      <h1>How I Built a Cloud Archiving App with AWS</h1>
+      <p><em>Using S3, Lambda, and Cognito to securely upload and retrieve files.</em></p>
+
+      <h2>Introduction</h2>
+      <p>In today’s digital-first world, organisations need efficient, secure ways to store and manage files.  
+         I recently designed a serverless archiving solution on AWS that lets employees upload, archive, and retrieve documents easily.</p>
+
+      <h2>Architecture Overview</h2>
+      <pre>
+Frontend (React) ⟶ API Gateway ⟶ Lambda Functions ⟶ S3
+                        ⤷ Cognito (User Auth)
+      </pre>
+
+      <h2>Authentication with Amazon Cognito</h2>
+      <p>A Cognito User Pool issues JWT tokens. IAM roles scoped per user restrict S3 access to personal prefixes like <code>s3://bucket/user-id/</code>.</p>
+
+      <h2>Secure File Upload</h2>
+      <p>Lambda generates <strong>pre-signed URLs</strong> so the browser uploads directly to S3 without exposing credentials.</p>
+
+      <h2>Lambda Functions</h2>
+      <ul>
+        <li><code>getUploadURL</code> – returns signed upload URL</li>
+        <li><code>listFiles</code> – lists user files</li>
+        <li><code>getDownloadURL</code> – provides signed download URL</li>
+      </ul>
+
+      <h2>Lessons Learned</h2>
+      <ul>
+        <li>Always use pre-signed URLs; never expose long-lived keys.</li>
+        <li>Keep S3 buckets private; enforce least-privilege IAM policies.</li>
+        <li>Enable S3 versioning & lifecycle rules for archival tiers.</li>
+      </ul>
+
+      <a href="index.html#blog" class="btn-3d back">← Back to all posts</a>
+    </article>
+  </main>
+
+  <!-- Theme + fade-up JS -->
+  <script>
+    /* Theme toggle (same as home) */
+    const btn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    let userChoice = localStorage.getItem('theme');
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    function applyTheme(t){
+      root.setAttribute('data-theme', t);
+      btn.textContent = t==='dark' ? '☀️' : '🌙';
+    }
+    if(userChoice) applyTheme(userChoice);
+    else applyTheme(media.matches?'dark':'light');
+    media.addEventListener('change', e=>{
+      if(!localStorage.getItem('theme')) applyTheme(e.matches?'dark':'light');
+    });
+    btn.onclick=()=>{
+      const next = root.getAttribute('data-theme')==='dark'?'light':'dark';
+      applyTheme(next); localStorage.setItem('theme',next);
+    };
+
+    /* Fade-up on load */
+    const blogContent = document.getElementById('blogContent');
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('show');
+      });
+    },{threshold:.15});
+    io.observe(blogContent);
+
+    /* Dynamic post switcher (optional) */
+    const post = new URLSearchParams(location.search).get('post');
+    if (post === 'security-tips') {
+      blogContent.innerHTML = `
+        <article>
+          <img src="images/security2.jpg" alt="Cover" class="hero-img"/>
+          <h1>Cloud Security Best Practices for Small Teams</h1>
+          <p><em>IAM roles, encryption, and automated backups are key to staying safe in the cloud.</em></p>
+
+          <h2>1. Use IAM the Right Way</h2>
+          <p>Create individual IAM users with least privilege; never use root for daily tasks. Enable MFA everywhere.</p>
+
+          <h2>2. Encrypt Everything</h2>
+          <p>Enable S3 default encryption (SSE-S3 or KMS) and enforce TLS on every endpoint.</p>
+
+          <h2>3. Monitor & Alert</h2>
+          <p>Turn on CloudTrail, GuardDuty, and CloudWatch alarms for root login, IAM changes, and failed logins.</p>
+
+          <h2>4. Backup & Test</h2>
+          <p>Automate cross-region backups and <strong>restore them quarterly</strong>.</p>
+
+          <a href="index.html#blog" class="btn-3d back">← Back to all posts</a>
+        </article>
+      `;
+    }
+  </script>
+</body>
+</html>

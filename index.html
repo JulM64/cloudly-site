@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Cloudly – Modern AWS Cloud Solutions</title>
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  padding: 32px;
+}
+
+.card .btn-3d {
+  margin-top: auto; /* This will push the button to the bottom */
+  align-self: flex-start; /* or center if you want it centered */
+}
+.card img {
+  width: 100%;
+  height: 180px;         /* Adjust height as needed */
+  object-fit: cover;     /* Ensures the image fills the area and is cropped if needed */
+  border-radius: 14px;   /* Optional: matches card's rounded corners */
+  margin-bottom: 20px;
+  display: block;
+}
+/* Make the About card image fill the card */
+#about .card img {
+  width: 100%;
+  height: 260px;      /* or any height you prefer */
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 0;
+}
+#blog .card img {
+  width: 100%;
+  height: 260px;      /* or any height you prefer */
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 0;
+}
+    :root{
+      --bg:#ffffff;
+      --bg-soft:#f5f7fa;
+      --text:#1a1a1a;
+      --text-soft:#555;
+      --accent:#0066ff;
+      --accent-soft:#0af;
+    }
+    [data-theme="dark"]{
+      --bg:#0d0d0d;
+      --bg-soft:#181818;
+      --text:#e5e5e5;
+      --text-soft:#aaa;
+      --accent:#0af;
+      --accent-soft:#0066ff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      transition:background .4s,color .4s;
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:20px 8%;position:fixed;top:0;width:100%;z-index:999;
+      background:rgba(255,255,255,.05);backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+    [data-theme="dark"] header{background:rgba(0,0,0,.25)}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.2rem}
+    nav ul{display:flex;gap:32px;list-style:none;align-items:center}
+    .btn-3d{
+      padding:12px 28px;border:none;border-radius:50px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      color:#fff;font-weight:600;letter-spacing:.5px;
+      box-shadow:0 8px 24px rgba(0,102,255,.35);
+      transition:transform .3s,box-shadow .3s;cursor:pointer;
+    }
+    .btn-3d:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,102,255,.45)}
+    .btn-3d:active{transform:translateY(0)}
+    .hero{
+      display:flex;align-items:center;min-height:100vh;
+      padding:120px 8% 60px;
+    }
+    .hero h1{font-size:clamp(2.5rem,5vw,4rem);line-height:1.2;letter-spacing:-.02em}
+    .hero p{margin:24px 0 40px;max-width:480px;color:var(--text-soft)}
+    .hero-img{position:relative;width:100%;max-width:500px;margin:auto}
+    .parallax{transition:transform .1s ease-out}
+
+    section{padding:80px 8%}
+    .section-title{font-size:2rem;margin-bottom:40px;text-align:center}
+    .grid{display:grid;gap:32px}
+    .grid-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .card{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:20px;padding:32px;
+      transition:transform .3s,box-shadow .3s;
+    }
+    [data-theme="dark"] .card{background:rgba(0,0,0,.25)}
+    .card:hover{transform:translateY(-6px);box-shadow:0 12px 28px rgba(0,0,0,.12)}
+    .card img{margin-bottom:20px;width:64px;height:64px;object-fit:contain}
+
+    form{max-width:600px;margin:auto}
+    form input,form textarea{
+      width:100%;padding:14px 18px;margin-bottom:20px;
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+      border-radius:8px;color:var(--text);
+    }
+    form textarea{min-height:140px;resize:vertical}
+    .footer{
+      padding:40px 8%;background:var(--bg-soft);
+      text-align:center;font-size:.9rem;color:var(--text-soft);
+    }
+    .socials{display:flex;gap:24px;justify-content:center;margin:20px 0}
+    .socials img{width:24px;height:24px;filter:invert(1)}
+
+    /* fade-up on scroll */
+    .fade-up{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+    .fade-up.show{opacity:1;transform:none}
+
+    /* toast */
+    .toast{
+      position:fixed;top:20px;right:20px;padding:14px 22px;background:var(--accent);
+      color:#fff;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.2);
+      opacity:0;transition:opacity .4s;z-index:9999
+    }
+    /* ---------- RESPONSIVE FIXES ---------- */
+
+/* 1. NAVBAR COLLAPSE */
+@media (max-width: 992px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 5%;
+  }
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 12px;
+    gap: 12px;
+  }
+  .logo {
+    font-size: 1.1rem;
+  }
+}
+
+/* 2. HERO STACK & SPACING */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 100px 5% 40px;
+    gap: 40px;
+  }
+  .hero h1 { font-size: 2.2rem; }
+  .hero p  { margin: 16px auto 24px; }
+  .hero-img {
+    margin: 0 auto;
+    max-width: 90%;
+  }
+}
+/* ---------- RESPONSIVE – PHONES ≤ 400 px ---------- */
+@media (max-width: 400px) {
+  /* 1. VERTICAL / HAMBURGER NAV */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 16px;
+  }
+  .logo {
+    font-size: 1rem;
+  }
+  nav {
+    width: 100%;
+    margin-top: 8px;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.9rem;
+  }
+
+  /* 2. HERO SPACING for 360-375 px */
+  .hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 120px 16px 40px; /* 120 px top = nav + gap */
+    gap: 32px;
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .hero-img {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  /* 3. SMALLER BUTTONS & CARDS */
+  .btn-3d {
+    padding: 10px 22px;
+    font-size: 0.9rem;
+  }
+  .card {
+    padding: 20px 20px 100px;
+  }
+}
+  /* … all your existing styles … */
+
+  /* center nav links on every screen 
+  nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }*/
+
+  /* keep vertical stack for ≤ 400 px 
+  @media (max-width: 400px) {
+    nav ul {
+      flex-direction: column;
+      gap: 6px;
+    }
+  }*/
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <a href="#home" class="logo">
+      <img src="images/cloudly-logo-simplified01.png" width="32" alt="Cloudly" id="logo-img"/>
+      Cloudly
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button class="btn-3d" id="themeToggle">🌙</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div>
+      <h1>Cloud Services Providers</h1>
+      <p>We build & host powerful cloud-based apps on AWS to help businesses scale smarter and faster.</p>
+      <a href="https://wa.me/237696311280" class="btn-3d">Contact Us</a>
+    </div>
+    <div class="hero-img">
+      <img src="images/CLOUDLY-LOGO-full.png" alt="hero" class="parallax" id="hero-img"/>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2 class="section-title fade-up">About Us</h2>
+    <div class="grid grid-2 fade-up">
+      <div>
+        <p>I’m an AWS Certified Solutions Architect helping startups & SMBs build secure, scalable, cost-effective cloud infrastructure—especially serverless.</p>
+        <p>Our mission: simplify cloud adoption with tailored, affordable AWS solutions.</p>
+        <p>We specialize in designing AWS architectures that grow with your business, without compromising on performance or security.</p>
+        <p>From initial setup to ongoing optimization, we ensure your cloud environment runs smoothly and efficiently.</p>
+        <p>Whether you're launching your first app or modernizing legacy systems, we help you navigate AWS with confidence and clarity.</p>
+      </div>
+      <div class="card">
+        <img src="images/about1.jpg" alt="about"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <h2 class="section-title fade-up">Our Services</h2>
+    <div class="grid grid-3 fade-up">
+      <div class="card">
+        <img src="images/s10101.png"/>
+        <h3>AWS Infrastructure Deployment</h3>
+        <p>Secure, scalable environments tailored to your needs.</p>
+      </div>
+      <div class="card">
+        <img src="images/s202.png"/>
+        <h3>Serverless Solutions</h3>
+        <p>Event-driven apps that scale automatically and cut costs.</p>
+      </div>
+      <div class="card">
+        <img src="images/s303.png"/>
+        <h3>Secure Cloud Archiving</h3>
+        <p>Encrypted S3 storage with lifecycle rules.</p>
+      </div>
+      <div class="card">
+        <img src="images/s404.png"/>
+        <h3>Security & Compliance</h3>
+        <p>IAM, KMS, WAF and best-practice policies.</p>
+      </div>
+      <div class="card">
+        <img src="images/s50101.png"/>
+        <h3>Migration to AWS</h3>
+        <p>Zero-downtime lift-and-shift or refactor.</p>
+      </div>
+      <div class="card">
+        <img src="images/s50302.png"/>
+        <h3>Cloud-Native App Dev</h3>
+        <p>Full-stack apps: auth, API, storage & analytics.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog">
+    <h2 class="section-title fade-up">Latest Blog Posts</h2>
+    <div class="grid grid-2 fade-up">
+      <div class="card">
+        <img src="images/archive1.jpg"/>
+        <h3>Cloud Archiving with S3 & Lambda</h3>
+        <p>How I built a serverless archiving app using AWS services.</p>
+        <a href="blog.html?post=archiving-app" class="btn-3d">Read more</a>
+      </div>
+      <div class="card">
+        <img src="images/security3.png"/>
+        <h3>Security Best Practices for Small Teams</h3>
+        <p>IAM, encryption, backups—done right.</p>
+        <a href="blog.html?post=security-tips" class="btn-3d">Read more</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2 class="section-title fade-up">Contact Us</h2>
+<form id="contactForm"
+      action="https://formsubmit.co/cloudlynetworking@gmail.com"
+      method="POST">
+  <input name="name" placeholder="Name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <input name="phone" placeholder="Phone (optional)" />
+  <textarea name="message" placeholder="How can we help?" required></textarea>
+
+  <!-- Required for FormSubmit -->
+  <input type="hidden" name="_captcha" value="false" />
+  <!-- Optional: redirect after success -->
+  <!-- <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html" /> -->
+
+  <button type="submit" class="btn-3d">Send Message</button>
+</form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer fade-up">
+    <p>Cameroon – Yaoundé | +237 696 311 280 | cloudlynetworking@gmail.com</p>
+    <div class="socials">
+      <a href="https://wa.me/237696311280"><img src="images/whatsapp1.png" alt="WhatsApp"/></a>
+      <a href="https://www.facebook.com/profile.php?id=61577339663126"><img src="images/fb1.png" alt="FB"/></a>
+      <a href="https://x.com/Cloudlynet"><img src="images/twitter1.png" alt="Twitter"/></a>
+      <a href="https://www.instagram.com/cloudlynetworking/"><img src="images/instagram1.png" alt="IG"/></a>
+    </div>
+    <p>&copy; 2025 Cloudly – Designed by Julien Mveng</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    /* Theme Toggle */
+    const btn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    let userChoice = localStorage.getItem('theme');
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+function updateImages() {
+  // Logo
+  const logoImg = document.getElementById('logo-img');
+  if (logoImg) {
+    const lightLogo = 'images/cloudly-logo-simplified01.png';
+    const darkLogo = 'images/cloudly-logo-simplified02.png';
+    logoImg.src = root.getAttribute('data-theme') === 'dark' ? darkLogo : lightLogo;
+  }
+  // Hero
+  const heroImg = document.getElementById('hero-img');
+  if (heroImg) {
+    const lightHero = 'images/CLOUDLY-LOGO-full.png';
+    const darkHero = 'images/CLOUDLY-LOGO---Dark.png';
+    heroImg.src = root.getAttribute('data-theme') === 'dark' ? darkHero : lightHero;
+  }
+}
+
+// Update your theme toggle to call updateImages instead of updateLogo:
+function applyTheme(t){
+  root.setAttribute('data-theme', t);
+  btn.textContent = t==='dark' ? '☀️' : '🌙';
+  updateImages();
+}
+if(userChoice) applyTheme(userChoice);
+else applyTheme(media.matches?'dark':'light');
+    media.addEventListener('change', e=>{
+      if(!localStorage.getItem('theme')) applyTheme(e.matches?'dark':'light');
+    });
+    btn.onclick=()=>{
+      const next = root.getAttribute('data-theme')==='dark'?'light':'dark';
+      applyTheme(next); localStorage.setItem('theme',next);
+    };
+
+    /* Parallax hero */
+    const heroImg = document.querySelector('.parallax');
+    document.addEventListener('mousemove', e=>{
+      const {innerWidth,innerHeight} = window;
+      const x = (e.clientX/innerWidth - .5) * 20;
+      const y = (e.clientY/innerHeight - .5) * 20;
+      heroImg.style.transform = `translate(${x}px,${y}px)`;
+    });
+
+    /* Scroll fade-up */
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('show');
+      });
+    },{threshold:.15});
+    document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+    /* Toast & Form */
+    function toast(msg){
+      const t=document.createElement('div');
+      t.className='toast'; t.textContent=msg;
+      document.body.appendChild(t);
+      requestAnimationFrame(()=>t.style.opacity=1);
+      setTimeout(()=>{t.style.opacity=0;setTimeout(()=>t.remove(),400)},3000);
+    }
+    document.getElementById('contactForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      fetch('https://formsubmit.co/ajax/cloudlynetworking@gmail.com',{
+        method:'POST',
+        body:new FormData(e.target)
+      }).then(r=>{
+        if(r.ok){toast('✅ Message sent!'); e.target.reset();}
+        else toast('❌ Error, try again.');
+      });
+    });
+  </script>
+</body>
+</html>
