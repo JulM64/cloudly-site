@@ -166,26 +166,65 @@
       gap: 6px;
     }
   }*/
+  /* Hamburger button (hidden on large screens) */
+#hamburger {
+  display: none;               /* desktop: invisible */
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1000;
+}
+#hamburger span {
+  width: 24px;
+  height: 3px;
+  background: var(--text);
+  transition: 0.3s;
+}
+@media (max-width: 400px) {
+  #hamburger { display: flex; }      /* show only on small screens */
+  nav ul {
+    display: none;                  /* default: hidden */
+    flex-direction: column;
+    width: 100%;
+    margin-top: 8px;
+    gap: 6px;
+  }
+  nav ul.show { display: flex; }    /* toggled state */
+}
+/* identical nav links on every page */
+header nav ul li a,
+header nav ul li button {
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  gap: 16px !important;
+  margin: 0;
+}
   </style>
 </head>
 <body>
   <!-- Header (identical to home) -->
-  <header>
-    <a href="index.html" class="logo">
-      <img src="images/cloudly-logo-simplified01.png" width="32" alt="Cloudly"/>
-      Cloudly
-    </a>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#services">Services</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-        <li><button class="btn-3d" id="themeToggle">🌙</button></li>
-      </ul>
-    </nav>
-  </header>
+<header>
+  <a href="index.html" class="logo">
+    <img src="images/cloudly-logo-simplified01.png" width="32" alt="Cloudly" id="logo-img"/>
+    Cloudly
+  </a>
+  <nav>
+    <button id="hamburger" aria-label="Menu" aria-controls="navbar">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><button class="btn-3d" id="themeToggle">🌙</button></li>
+    </ul>
+  </nav>
+</header>
 
   <!-- Blog Content Area -->
   <main class="container fade-up" id="blogContent">
@@ -231,17 +270,36 @@ Frontend (React) ⟶ API Gateway ⟶ Lambda Functions ⟶ S3
 
   <!-- Theme + fade-up JS -->
   <script>
-    /* Theme toggle (same as home) */
+    /* Theme Toggle */
     const btn = document.getElementById('themeToggle');
     const root = document.documentElement;
     let userChoice = localStorage.getItem('theme');
     const media = window.matchMedia('(prefers-color-scheme: dark)');
-    function applyTheme(t){
-      root.setAttribute('data-theme', t);
-      btn.textContent = t==='dark' ? '☀️' : '🌙';
-    }
-    if(userChoice) applyTheme(userChoice);
-    else applyTheme(media.matches?'dark':'light');
+function updateImages() {
+  // Logo
+  const logoImg = document.getElementById('logo-img');
+  if (logoImg) {
+    const lightLogo = 'images/cloudly-logo-simplified01.png';
+    const darkLogo = 'images/cloudly-logo-simplified02.png';
+    logoImg.src = root.getAttribute('data-theme') === 'dark' ? darkLogo : lightLogo;
+  }
+  // Hero
+  const heroImg = document.getElementById('hero-img');
+  if (heroImg) {
+    const lightHero = 'images/CLOUDLY-LOGO-full.png';
+    const darkHero = 'images/CLOUDLY-LOGO---Dark.png';
+    heroImg.src = root.getAttribute('data-theme') === 'dark' ? darkHero : lightHero;
+  }
+}
+
+// Update your theme toggle to call updateImages instead of updateLogo:
+function applyTheme(t){
+  root.setAttribute('data-theme', t);
+  btn.textContent = t==='dark' ? '☀️' : '🌙';
+  updateImages();
+}
+if(userChoice) applyTheme(userChoice);
+else applyTheme(media.matches?'dark':'light');
     media.addEventListener('change', e=>{
       if(!localStorage.getItem('theme')) applyTheme(e.matches?'dark':'light');
     });
@@ -249,7 +307,6 @@ Frontend (React) ⟶ API Gateway ⟶ Lambda Functions ⟶ S3
       const next = root.getAttribute('data-theme')==='dark'?'light':'dark';
       applyTheme(next); localStorage.setItem('theme',next);
     };
-
     /* Fade-up on load */
     const blogContent = document.getElementById('blogContent');
     const io = new IntersectionObserver(entries=>{
@@ -258,6 +315,9 @@ Frontend (React) ⟶ API Gateway ⟶ Lambda Functions ⟶ S3
       });
     },{threshold:.15});
     io.observe(blogContent);
+    const hamburger = document.getElementById('hamburger');
+    const navMenu   = document.querySelector('nav ul');
+    hamburger.addEventListener('click', () => navMenu.classList.toggle('show'));
 
     /* Dynamic post switcher (optional) */
     const post = new URLSearchParams(location.search).get('post');

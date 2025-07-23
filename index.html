@@ -229,6 +229,34 @@
       gap: 6px;
     }
   }*/
+  /* Hamburger button (hidden on large screens) */
+#hamburger {
+  display: none;               /* desktop: invisible */
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1000;
+}
+#hamburger span {
+  width: 24px;
+  height: 3px;
+  background: var(--text);
+  transition: 0.3s;
+}
+@media (max-width: 400px) {
+  #hamburger { display: flex; }      /* show only on small screens */
+  nav ul {
+    display: none;                  /* default: hidden */
+    flex-direction: column;
+    width: 100%;
+    margin-top: 8px;
+    gap: 6px;
+  }
+  nav ul.show { display: flex; }    /* toggled state */
+}
   </style>
 </head>
 <body>
@@ -239,6 +267,11 @@
       Cloudly
     </a>
     <nav>
+     <button id="hamburger" aria-label="Menu" aria-controls="navbar">
+      <span></span>
+      <span></span>
+      <span></span>
+     </button>
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -441,6 +474,9 @@ else applyTheme(media.matches?'dark':'light');
         else toast('❌ Error, try again.');
       });
     });
+    const hamburger = document.getElementById('hamburger');
+    const navMenu   = document.querySelector('nav ul');
+    hamburger.addEventListener('click', () => navMenu.classList.toggle('show'));
   </script>
 </body>
 </html>
