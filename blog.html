@@ -3,23 +3,22 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blog &amp; Cloud Insights – Cloudly AWS Cloud Architecture</title>
+  <title>Blog &amp; Cloud Insights – Cloudly AWS Cloud Solutions</title>
   <meta name="description" content="Explore in-depth AWS cloud architecture guides, serverless blueprints, FinOps strategies, and security best practices from Cloudly."/>
   <link rel="icon" type="image/png" href="favicon.png"/>
   
   <!-- CSS Design System -->
   <link rel="stylesheet" href="css/style.css"/>
   <style>
-    /* Additional Blog Hub & Article specific styling */
     .blog-hero {
-      padding: 140px 0 40px 0;
+      padding: 130px 0 30px 0;
       text-align: center;
     }
     .blog-filter-bar {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin: 30px 0 40px 0;
+      margin: 24px 0 36px 0;
       flex-wrap: wrap;
     }
     .filter-btn {
@@ -46,8 +45,8 @@
       box-shadow: 0 4px 16px var(--accent-glow);
     }
     .search-input-wrap {
-      max-width: 460px;
-      margin: 0 auto 20px auto;
+      max-width: 480px;
+      margin: 0 auto 16px auto;
       position: relative;
     }
     .search-input-wrap input {
@@ -69,7 +68,7 @@
       background: var(--card-bg);
       border: 1px solid var(--glass-border);
       border-radius: 16px;
-      margin-top: 40px;
+      margin: 40px 0 20px 0;
     }
     .author-avatar {
       width: 56px;
@@ -83,6 +82,12 @@
       color: #fff;
       font-size: 1.3rem;
       flex-shrink: 0;
+    }
+    .article-reader-section {
+      display: none;
+    }
+    .article-reader-section.active {
+      display: block;
     }
   </style>
 </head>
@@ -152,7 +157,7 @@
   </header>
 
   <!-- ==========================================
-       VIEW 1: BLOG HUB & DIRECTORY (Default View)
+       VIEW 1: BLOG DIRECTORY (HUB)
        ========================================== -->
   <div id="blogHubView">
     <section class="blog-hero">
@@ -160,7 +165,7 @@
         <div class="section-header fade-up show">
           <span class="section-tag">AWS Insights &amp; Engineering</span>
           <h1 class="section-title">Cloudly Architecture Journal</h1>
-          <p class="section-subtitle">Practical blueprints, real-world case studies, and AWS architectural best practices written by certified cloud engineers.</p>
+          <p class="section-subtitle">Real-world production patterns, serverless architectures, and AWS best practices written by certified cloud engineers.</p>
         </div>
 
         <!-- Search Bar -->
@@ -198,10 +203,10 @@
               </div>
               <h3>How I Built a Serverless Cloud Archiving App on AWS</h3>
               <p>Step-by-step walkthrough of building a scalable document archiving platform with Amazon S3 pre-signed URLs, AWS Lambda, and Cognito authentication.</p>
-              <button onclick="openArticle('archiving-app')" class="btn btn-secondary" style="align-self: flex-start; padding: 10px 22px; font-size: 0.88rem;">
+              <a href="blog.html?post=archiving-app" onclick="navigateToArticle(event, 'archiving-app')" class="btn btn-secondary" style="align-self: flex-start; padding: 10px 22px; font-size: 0.88rem;">
                 <span>Read Full Article</span>
                 <span class="btn-icon">→</span>
-              </button>
+              </a>
             </div>
           </article>
 
@@ -218,10 +223,10 @@
               </div>
               <h3>Security Best Practices for Startups on AWS</h3>
               <p>Essential cloud posture hardening: IAM least-privilege scoping, automated customer-managed KMS key rotation, and GuardDuty threat alerts.</p>
-              <button onclick="openArticle('security-tips')" class="btn btn-secondary" style="align-self: flex-start; padding: 10px 22px; font-size: 0.88rem;">
+              <a href="blog.html?post=security-tips" onclick="navigateToArticle(event, 'security-tips')" class="btn btn-secondary" style="align-self: flex-start; padding: 10px 22px; font-size: 0.88rem;">
                 <span>Read Full Article</span>
                 <span class="btn-icon">→</span>
-              </button>
+              </a>
             </div>
           </article>
 
@@ -238,10 +243,10 @@
               </div>
               <h3>Zero-Downtime AWS Migration: From Monolith to Serverless</h3>
               <p>How to migrate legacy on-premises databases and workloads using AWS DMS, ECS Fargate containers, and Route 53 weighted DNS traffic routing.</p>
-              <button onclick="openArticle('cloud-migration')" class="btn btn-secondary" style="align-self: flex-start; padding: 10px 22px; font-size: 0.88rem;">
+              <a href="blog.html?post=cloud-migration" onclick="navigateToArticle(event, 'cloud-migration')" class="btn btn-secondary" style="align-self: flex-start; padding: 10px 22px; font-size: 0.88rem;">
                 <span>Read Full Article</span>
                 <span class="btn-icon">→</span>
-              </button>
+              </a>
             </div>
           </article>
 
@@ -258,10 +263,10 @@
               </div>
               <h3>FinOps &amp; AWS Cost Optimization: Cutting Cloud Bills by 40%</h3>
               <p>Proven cloud cost optimization strategies: S3 Intelligent-Tiering, AWS Graviton processors, automated idle resource shutdown, and Savings Plans.</p>
-              <button onclick="openArticle('finops-cost-reduction')" class="btn btn-secondary" style="align-self: flex-start; padding: 10px 22px; font-size: 0.88rem;">
+              <a href="blog.html?post=finops-cost-reduction" onclick="navigateToArticle(event, 'finops-cost-reduction')" class="btn btn-secondary" style="align-self: flex-start; padding: 10px 22px; font-size: 0.88rem;">
                 <span>Read Full Article</span>
                 <span class="btn-icon">→</span>
-              </button>
+              </a>
             </div>
           </article>
 
@@ -271,33 +276,83 @@
   </div>
 
   <!-- ==========================================
-       VIEW 2: FULL ARTICLE READER (Single Post)
+       VIEW 2: FULL ARTICLE READER VIEW
        ========================================== -->
   <main class="article-container" id="articleReaderView" style="display: none;">
     
     <div style="margin-bottom: 24px;">
-      <button onclick="showBlogHub()" class="btn btn-secondary" style="padding: 9px 18px; font-size: 0.88rem;">
+      <button onclick="showBlogHub()" class="btn btn-secondary" style="padding: 9px 18px; font-size: 0.88rem; cursor: pointer;">
         <span>← Back to All Articles</span>
       </button>
     </div>
 
-    <!-- Dynamic Article Content Card -->
-    <article class="glass-card fade-up show" style="padding: 44px 36px;">
-      
+    <!-- Article 1: Archiving App -->
+    <article class="glass-card article-reader-section fade-up show" id="article-archiving-app" style="padding: 44px 36px;">
       <div class="article-header">
-        <div class="section-tag" id="postTag">AWS Serverless Architecture</div>
-        <h1 id="postTitle">How I Built a Serverless Cloud Archiving App on AWS</h1>
-        <div class="blog-meta" id="postMeta">
+        <div class="section-tag">AWS Serverless Architecture</div>
+        <h1>How I Built a Serverless Cloud Archiving App on AWS</h1>
+        <div class="blog-meta">
           <span>✍️ Julien Mveng (AWS Certified Solutions Architect)</span>
           <span>📅 January 2026</span>
           <span>⏱️ 5 min read</span>
         </div>
       </div>
 
-      <img src="images/archive1.jpg" alt="Article Cover Image" class="article-cover" id="postCover"/>
+      <img src="images/archive1.jpg" alt="Cloud Archiving with AWS" class="article-cover"/>
 
-      <div class="article-body" id="postText">
-        <!-- Content injected dynamically via JavaScript -->
+      <div class="article-body">
+        <h2>Introduction &amp; Core Challenge</h2>
+        <p>
+          In modern digital enterprises, retaining terabytes of business records, invoices, and sensitive documents securely while keeping cloud storage bills low is a critical engineering challenge. Storing everything on expensive high-availability tiers creates unnecessary FinOps waste, while traditional cold-storage setups often suffer from clumsy retrieval processes.
+        </p>
+        <p>
+          I designed and deployed a serverless, zero-maintenance archiving solution on AWS that empowers employees to securely upload, encrypt, and retrieve documents seamlessly with automated Glacier lifecycle transitions.
+        </p>
+
+        <h2>High-Level System Architecture</h2>
+        <div class="code-box">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>Client (React / Web App)
+    │  
+    ├──▶ [1] Cognito User Pool (JWT Auth &amp; Scoped IAM Roles)
+    │
+    ├──▶ [2] API Gateway (REST Endpoints &amp; Rate Limiting)
+    │          │
+    │          ▼
+    │     [3] AWS Lambda (Token Validation &amp; S3 Pre-Signed URLs)
+    │
+    └──▶ [4] Amazon S3 Bucket (Direct Multi-Part Upload)
+               │
+               ├──▶ SSE-KMS Customer-Managed Encryption
+               └──▶ Lifecycle Policy: S3 Standard ➔ Glacier Deep Archive</code></pre>
+        </div>
+
+        <h2>1. Authentication &amp; Scoped Isolation with Amazon Cognito</h2>
+        <p>
+          Security starts with zero trust. A Cognito User Pool handles authentication and MFA. Upon login, an authenticated IAM role is assumed with strict tenant scoping. Users are strictly constrained to their personal folder path:
+        </p>
+        <div class="code-box">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>// Example S3 Resource Scope in IAM Policy
+"Resource": "arn:aws:s3:::cloudly-secure-archive/${cognito-identity.amazonaws.com:sub}/*"</code></pre>
+        </div>
+
+        <h2>2. Direct-to-S3 Uploads via Pre-Signed URLs</h2>
+        <p>
+          Instead of passing multi-megabyte payloads through API Gateway and Lambda (which would incur payload limits and high execution costs), the browser requests a cryptographically signed upload URL from Lambda. Lambda validates permissions and issues a pre-signed URL with a 5-minute TTL. The browser then streams the file directly to S3.
+        </p>
+
+        <h2>3. Automated Tiering &amp; Cost Optimization</h2>
+        <p>
+          By configuring automated S3 Lifecycle Rules, documents are moved to <strong>S3 Infrequent Access (IA)</strong> after 30 days and archived to <strong>Glacier Deep Archive</strong> after 90 days, cutting recurring storage costs by up to <strong>80%</strong>.
+        </p>
+
+        <h2>Key Takeaways &amp; Best Practices</h2>
+        <ul style="margin-left: 24px; margin-bottom: 30px; color: var(--text-secondary);">
+          <li style="margin-bottom: 10px;"><strong>Never expose AWS credentials in the frontend:</strong> Always generate short-lived pre-signed URLs.</li>
+          <li style="margin-bottom: 10px;"><strong>Enforce KMS Encryption:</strong> Enable default bucket encryption using customer-managed KMS keys with key rotation.</li>
+          <li style="margin-bottom: 10px;"><strong>Automate Archival Rules:</strong> FinOps lifecycle rules ensure you never pay primary storage rates for dormant archives.</li>
+        </ul>
       </div>
 
       <!-- Author Bio -->
@@ -311,7 +366,6 @@
         </div>
       </div>
 
-      <!-- Bottom Navigation / Consultation CTA -->
       <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
         <button onclick="showBlogHub()" class="btn btn-secondary">
           <span>← Back to All Articles</span>
@@ -321,7 +375,195 @@
           <span class="btn-icon">→</span>
         </a>
       </div>
+    </article>
 
+    <!-- Article 2: Security Tips -->
+    <article class="glass-card article-reader-section fade-up show" id="article-security-tips" style="padding: 44px 36px;">
+      <div class="article-header">
+        <div class="section-tag">Cloud Security &amp; Compliance</div>
+        <h1>Security Best Practices for Startups on AWS</h1>
+        <div class="blog-meta">
+          <span>✍️ Julien Mveng (AWS Certified Solutions Architect)</span>
+          <span>📅 February 2026</span>
+          <span>⏱️ 4 min read</span>
+        </div>
+      </div>
+
+      <img src="images/security3.png" alt="AWS Security Architecture" class="article-cover"/>
+
+      <div class="article-body">
+        <h2>1. Establish Granular IAM Governance Early</h2>
+        <p>
+          The number one cause of cloud data breaches is compromised overly-permissive IAM credentials. Never use the AWS root account for daily operations. Implement single sign-on (IAM Identity Center) with mandatory hardware MFA and assign granular permission boundaries.
+        </p>
+
+        <h2>2. Encrypt Everything by Default</h2>
+        <p>
+          Enforce S3 bucket default encryption with AWS KMS customer-managed keys (CMK), enable TLS 1.3 on all API Gateway and CloudFront distributions, and enforce EBS volume encryption on creation.
+        </p>
+
+        <h2>3. Centralize Logging &amp; Threat Detection</h2>
+        <p>
+          Turn on <strong>AWS CloudTrail</strong> across all AWS regions, ship logs to an isolated, write-once security account, and activate <strong>Amazon GuardDuty</strong> for automated anomaly detection.
+        </p>
+
+        <div class="code-box">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code># Quick Terraform Snippet: Enforce S3 Bucket Encryption
+resource "aws_s3_bucket_server_side_encryption_configuration" "secure_bucket" {
+  bucket = aws_s3_bucket.main.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.cloudly_key.arn
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}</code></pre>
+        </div>
+
+        <h2>4. Continuous Disaster Recovery Drills</h2>
+        <p>
+          Having automated backups is only half the battle. Schedule quarterly automated cross-region restore tests to verify Recovery Point Objective (RPO) and Recovery Time Objective (RTO) targets.
+        </p>
+      </div>
+
+      <!-- Author Bio -->
+      <div class="author-card">
+        <div class="author-avatar">JM</div>
+        <div>
+          <h4 style="margin-bottom: 4px; font-size: 1.05rem;">Julien Mveng</h4>
+          <p style="color: var(--text-secondary); font-size: 0.88rem; margin: 0;">
+            AWS Certified Solutions Architect specializing in cloud security, compliance, and disaster recovery.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <button onclick="showBlogHub()" class="btn btn-secondary">
+          <span>← Back to All Articles</span>
+        </button>
+        <a href="index.html#contact" class="btn btn-primary">
+          <span>Consult on Your Architecture</span>
+          <span class="btn-icon">→</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- Article 3: Cloud Migration -->
+    <article class="glass-card article-reader-section fade-up show" id="article-cloud-migration" style="padding: 44px 36px;">
+      <div class="article-header">
+        <div class="section-tag">Cloud Migration &amp; Modernization</div>
+        <h1>Zero-Downtime AWS Migration: From Monolith to Serverless</h1>
+        <div class="blog-meta">
+          <span>✍️ Julien Mveng (AWS Certified Solutions Architect)</span>
+          <span>📅 March 2026</span>
+          <span>⏱️ 6 min read</span>
+        </div>
+      </div>
+
+      <img src="images/about1.jpg" alt="Zero Downtime Cloud Migration" class="article-cover"/>
+
+      <div class="article-body">
+        <h2>Strategic Migration Framework</h2>
+        <p>
+          Migrating mission-critical production workloads to AWS requires a proven, risk-mitigated strategy. Rather than risky big-bang cuts, we apply the Strangler Fig pattern to migrate services incrementally.
+        </p>
+
+        <h2>1. Database Synchronization with AWS DMS</h2>
+        <p>
+          Using AWS Database Migration Service (DMS) with Change Data Capture (CDC), data is continuously replicated from source databases (PostgreSQL/MySQL) to Amazon Aurora Serverless in real time, keeping lag under 1 second.
+        </p>
+
+        <h2>2. Containerized Workloads on ECS Fargate</h2>
+        <p>
+          Legacy monoliths are containerized into lightweight Docker images and deployed on Amazon ECS with AWS Fargate, eliminating server patching and providing auto-scaling behind Application Load Balancers.
+        </p>
+
+        <h2>3. Route 53 Weighted DNS Cutover</h2>
+        <p>
+          Traffic is transitioned gradually (10% ➔ 50% ➔ 100%) using Amazon Route 53 weighted routing policies. If anomalies arise, rollback is instant with zero data loss.
+        </p>
+      </div>
+
+      <!-- Author Bio -->
+      <div class="author-card">
+        <div class="author-avatar">JM</div>
+        <div>
+          <h4 style="margin-bottom: 4px; font-size: 1.05rem;">Julien Mveng</h4>
+          <p style="color: var(--text-secondary); font-size: 0.88rem; margin: 0;">
+            AWS Certified Solutions Architect specializing in zero-downtime database and application migrations.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <button onclick="showBlogHub()" class="btn btn-secondary">
+          <span>← Back to All Articles</span>
+        </button>
+        <a href="index.html#contact" class="btn btn-primary">
+          <span>Consult on Your Architecture</span>
+          <span class="btn-icon">→</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- Article 4: FinOps Cost Reduction -->
+    <article class="glass-card article-reader-section fade-up show" id="article-finops-cost-reduction" style="padding: 44px 36px;">
+      <div class="article-header">
+        <div class="section-tag">FinOps &amp; Cost Optimization</div>
+        <h1>FinOps &amp; AWS Cost Optimization: Cutting Cloud Bills by 40%</h1>
+        <div class="blog-meta">
+          <span>✍️ Julien Mveng (AWS Certified Solutions Architect)</span>
+          <span>📅 April 2026</span>
+          <span>⏱️ 5 min read</span>
+        </div>
+      </div>
+
+      <img src="images/3214.jpg" alt="FinOps Cost Optimization" class="article-cover"/>
+
+      <div class="article-body">
+        <h2>The 4 Pillars of Cloud Cost Optimization</h2>
+        <p>
+          Many organizations overspend on AWS by 30% to 50% due to unattached EBS volumes, oversized EC2 instances, and unoptimized storage tiers.
+        </p>
+
+        <h2>1. Right-Sizing &amp; Graviton3 Adoption</h2>
+        <p>
+          Migrating EC2, ECS, and Lambda runtimes from x86 to ARM-based AWS Graviton3 delivers up to <strong>25% better compute performance</strong> at <strong>20% lower cost</strong>.
+        </p>
+
+        <h2>2. S3 Intelligent-Tiering</h2>
+        <p>
+          Enabling S3 Intelligent-Tiering automatically moves objects between frequent, infrequent, and archive access tiers without retrieval fees or operational overhead.
+        </p>
+
+        <h2>3. Automated Idle Resource Shutdown</h2>
+        <p>
+          Using EventBridge Scheduler and Lambda to turn off non-production development environments outside business hours immediately cuts non-prod compute costs by <strong>65%</strong>.
+        </p>
+      </div>
+
+      <!-- Author Bio -->
+      <div class="author-card">
+        <div class="author-avatar">JM</div>
+        <div>
+          <h4 style="margin-bottom: 4px; font-size: 1.05rem;">Julien Mveng</h4>
+          <p style="color: var(--text-secondary); font-size: 0.88rem; margin: 0;">
+            AWS Certified Solutions Architect specializing in FinOps, cloud cost modeling, and infrastructure efficiency.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <button onclick="showBlogHub()" class="btn btn-secondary">
+          <span>← Back to All Articles</span>
+        </button>
+        <a href="index.html#contact" class="btn btn-primary">
+          <span>Consult on Your Architecture</span>
+          <span class="btn-icon">→</span>
+        </a>
+      </div>
     </article>
 
   </main>
@@ -389,211 +631,89 @@
 
   <!-- Scripts -->
   <script>
-    // --- Articles Database ---
-    const articlesDB = {
-      'archiving-app': {
-        title: 'How I Built a Serverless Cloud Archiving App on AWS',
-        tag: 'AWS Serverless Architecture',
-        meta: '<span>✍️ Julien Mveng (AWS Certified Solutions Architect)</span><span>📅 January 2026</span><span>⏱️ 5 min read</span>',
-        cover: 'images/archive1.jpg',
-        content: `
-          <h2>Introduction &amp; Core Challenge</h2>
-          <p>
-            In modern digital enterprises, retaining terabytes of business records, invoices, and sensitive documents securely while keeping cloud storage bills low is a critical engineering challenge. Storing everything on expensive high-availability tiers creates unnecessary FinOps waste, while traditional cold-storage setups often suffer from clumsy retrieval processes.
-          </p>
-          <p>
-            I designed and deployed a serverless, zero-maintenance archiving solution on AWS that empowers employees to securely upload, encrypt, and retrieve documents seamlessly with automated Glacier lifecycle transitions.
-          </p>
-
-          <h2>High-Level System Architecture</h2>
-          <div class="code-box">
-            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            <pre><code>Client (React / Web App)
-      │  
-      ├──▶ [1] Cognito User Pool (JWT Auth &amp; Scoped IAM Roles)
-      │
-      ├──▶ [2] API Gateway (REST Endpoints &amp; Rate Limiting)
-      │          │
-      │          ▼
-      │     [3] AWS Lambda (Token Validation &amp; S3 Pre-Signed URLs)
-      │
-      └──▶ [4] Amazon S3 Bucket (Direct Multi-Part Upload)
-                 │
-                 ├──▶ SSE-KMS Customer-Managed Encryption
-                 └──▶ Lifecycle Policy: S3 Standard ➔ Glacier Deep Archive</code></pre>
-          </div>
-
-          <h2>1. Authentication &amp; Scoped Isolation with Amazon Cognito</h2>
-          <p>
-            Security starts with zero trust. A Cognito User Pool handles authentication and MFA. Upon login, an authenticated IAM role is assumed with strict tenant scoping. Users are strictly constrained to their personal folder path:
-          </p>
-          <div class="code-box">
-            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            <pre><code>// Example S3 Resource Scope in IAM Policy
-"Resource": "arn:aws:s3:::cloudly-secure-archive/\${cognito-identity.amazonaws.com:sub}/*"</code></pre>
-          </div>
-
-          <h2>2. Direct-to-S3 Uploads via Pre-Signed URLs</h2>
-          <p>
-            Instead of passing multi-megabyte payloads through API Gateway and Lambda (which would incur payload limits and high execution costs), the browser requests a cryptographically signed upload URL from Lambda. Lambda validates permissions and issues a pre-signed URL with a 5-minute TTL. The browser then streams the file directly to S3.
-          </p>
-
-          <h2>3. Automated Tiering &amp; Cost Optimization</h2>
-          <p>
-            By configuring automated S3 Lifecycle Rules, documents are moved to <strong>S3 Infrequent Access (IA)</strong> after 30 days and archived to <strong>Glacier Deep Archive</strong> after 90 days, cutting recurring storage costs by up to <strong>80%</strong>.
-          </p>
-
-          <h2>Key Takeaways &amp; Best Practices</h2>
-          <ul style="margin-left: 24px; margin-bottom: 30px; color: var(--text-secondary);">
-            <li style="margin-bottom: 10px;"><strong>Never expose AWS credentials in the frontend:</strong> Always generate short-lived pre-signed URLs.</li>
-            <li style="margin-bottom: 10px;"><strong>Enforce KMS Encryption:</strong> Enable default bucket encryption using customer-managed KMS keys with key rotation.</li>
-            <li style="margin-bottom: 10px;"><strong>Automate Archival Rules:</strong> FinOps lifecycle rules ensure you never pay primary storage rates for dormant archives.</li>
-          </ul>
-        `
-      },
-      'security-tips': {
-        title: 'Security Best Practices for Startups on AWS',
-        tag: 'Cloud Security & Compliance',
-        meta: '<span>✍️ Julien Mveng (AWS Certified Solutions Architect)</span><span>📅 February 2026</span><span>⏱️ 4 min read</span>',
-        cover: 'images/security3.png',
-        content: `
-          <h2>1. Establish Granular IAM Governance Early</h2>
-          <p>
-            The number one cause of cloud data breaches is compromised overly-permissive IAM credentials. Never use the AWS root account for daily operations. Implement single sign-on (IAM Identity Center) with mandatory hardware MFA and assign granular permission boundaries.
-          </p>
-
-          <h2>2. Encrypt Everything by Default</h2>
-          <p>
-            Enforce S3 bucket default encryption with AWS KMS customer-managed keys (CMK), enable TLS 1.3 on all API Gateway and CloudFront distributions, and enforce EBS volume encryption on creation.
-          </p>
-
-          <h2>3. Centralize Logging &amp; Threat Detection</h2>
-          <p>
-            Turn on <strong>AWS CloudTrail</strong> across all AWS regions, ship logs to an isolated, write-once security account, and activate <strong>Amazon GuardDuty</strong> for automated anomaly detection.
-          </p>
-
-          <div class="code-box">
-            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            <pre><code># Quick Terraform Snippet: Enforce S3 Bucket Encryption
-resource "aws_s3_bucket_server_side_encryption_configuration" "secure_bucket" {
-  bucket = aws_s3_bucket.main.id
-
-  rule {
-    apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.cloudly_key.arn
-      sse_algorithm     = "aws:kms"
+    // --- Navigation & View Switching ---
+    function navigateToArticle(e, postId) {
+      if (e) e.preventDefault();
+      openArticle(postId);
     }
-  }
-}</code></pre>
-          </div>
 
-          <h2>4. Continuous Disaster Recovery Drills</h2>
-          <p>
-            Having automated backups is only half the battle. Schedule quarterly automated cross-region restore tests to verify Recovery Point Objective (RPO) and Recovery Time Objective (RTO) targets.
-          </p>
-        `
-      },
-      'cloud-migration': {
-        title: 'Zero-Downtime AWS Migration: From Monolith to Serverless',
-        tag: 'Cloud Migration & Modernization',
-        meta: '<span>✍️ Julien Mveng (AWS Certified Solutions Architect)</span><span>📅 March 2026</span><span>⏱️ 6 min read</span>',
-        cover: 'images/about1.jpg',
-        content: `
-          <h2>Strategic Migration Framework</h2>
-          <p>
-            Migrating mission-critical production workloads to AWS requires a proven, risk-mitigated strategy. Rather than risky big-bang cuts, we apply the Strangler Fig pattern to migrate services incrementally.
-          </p>
-
-          <h2>1. Database Synchronization with AWS DMS</h2>
-          <p>
-            Using AWS Database Migration Service (DMS) with Change Data Capture (CDC), data is continuously replicated from source databases (PostgreSQL/MySQL) to Amazon Aurora Serverless in real time, keeping lag under 1 second.
-          </p>
-
-          <h2>2. Containerized Workloads on ECS Fargate</h2>
-          <p>
-            Legacy monoliths are containerized into lightweight Docker images and deployed on Amazon ECS with AWS Fargate, eliminating server patching and providing auto-scaling behind Application Load Balancers.
-          </p>
-
-          <h2>3. Route 53 Weighted DNS Cutover</h2>
-          <p>
-            Traffic is transitioned gradually (10% ➔ 50% ➔ 100%) using Amazon Route 53 weighted routing policies. If anomalies arise, rollback is instant with zero data loss.
-          </p>
-        `
-      },
-      'finops-cost-reduction': {
-        title: 'FinOps & AWS Cost Optimization: Cutting Cloud Bills by 40%',
-        tag: 'FinOps & Cost Optimization',
-        meta: '<span>✍️ Julien Mveng (AWS Certified Solutions Architect)</span><span>📅 April 2026</span><span>⏱️ 5 min read</span>',
-        cover: 'images/3214.jpg',
-        content: `
-          <h2>The 4 Pillars of Cloud Cost Optimization</h2>
-          <p>
-            Many organizations overspend on AWS by 30% to 50% due to unattached EBS volumes, oversized EC2 instances, and unoptimized storage tiers.
-          </p>
-
-          <h2>1. Right-Sizing &amp; Graviton3 Adoption</h2>
-          <p>
-            Migrating EC2, ECS, and Lambda runtimes from x86 to ARM-based AWS Graviton3 delivers up to <strong>25% better compute performance</strong> at <strong>20% lower cost</strong>.
-          </p>
-
-          <h2>2. S3 Intelligent-Tiering</h2>
-          <p>
-            Enabling S3 Intelligent-Tiering automatically moves objects between frequent, infrequent, and archive access tiers without retrieval fees or operational overhead.
-          </p>
-
-          <h2>3. Automated Idle Resource Shutdown</h2>
-          <p>
-            Using EventBridge Scheduler and Lambda to turn off non-production development environments outside business hours immediately cuts non-prod compute costs by <strong>65%</strong>.
-          </p>
-        `
-      }
-    };
-
-    // --- View Controller ---
     function openArticle(postId) {
-      const article = articlesDB[postId];
-      if (!article) return;
+      const hubView = document.getElementById('blogHubView');
+      const readerView = document.getElementById('articleReaderView');
+      const targetArticle = document.getElementById('article-' + postId);
 
-      document.getElementById('postTitle').textContent = article.title;
-      document.getElementById('postTag').textContent = article.tag;
-      document.getElementById('postMeta').innerHTML = article.meta;
-      document.getElementById('postCover').src = article.cover;
-      document.getElementById('postText').innerHTML = article.content;
+      if (!targetArticle) return;
 
-      document.getElementById('blogHubView').style.display = 'none';
-      document.getElementById('articleReaderView').style.display = 'block';
-      document.title = article.title + ' – Cloudly';
+      // Hide hub, show reader
+      hubView.style.display = 'none';
+      readerView.style.display = 'block';
 
-      window.history.pushState({ postId }, '', `blog.html?post=${postId}`);
+      // Hide all article sections, show the requested one
+      document.querySelectorAll('.article-reader-section').forEach(sec => sec.classList.remove('active'));
+      targetArticle.classList.add('active');
+
+      // Safe URL update that works on file://, http://, and GitHub Pages
+      try {
+        if (window.location.protocol !== 'file:') {
+          window.history.pushState({ postId }, '', `blog.html?post=${postId}`);
+        } else {
+          window.location.hash = postId;
+        }
+      } catch (err) {
+        window.location.hash = postId;
+      }
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function showBlogHub() {
-      document.getElementById('blogHubView').style.display = 'block';
-      document.getElementById('articleReaderView').style.display = 'none';
-      document.title = 'Blog & Cloud Insights – Cloudly AWS Cloud Architecture';
-      window.history.pushState({}, '', 'blog.html');
+      const hubView = document.getElementById('blogHubView');
+      const readerView = document.getElementById('articleReaderView');
+
+      hubView.style.display = 'block';
+      readerView.style.display = 'none';
+      document.querySelectorAll('.article-reader-section').forEach(sec => sec.classList.remove('active'));
+
+      try {
+        if (window.location.protocol !== 'file:') {
+          window.history.pushState({}, '', 'blog.html');
+        } else {
+          window.location.hash = '';
+        }
+      } catch (err) {
+        window.location.hash = '';
+      }
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Handle initial URL parameters
-    window.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const post = urlParams.get('post');
-      if (post && articlesDB[post]) {
-        openArticle(post);
-      } else {
-        showBlogHub();
-      }
-    });
+    // Initialize Page View immediately
+    function checkUrlAndRender() {
+      let postId = '';
+      
+      // Check query parameter (?post=...)
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        postId = urlParams.get('post');
+      } catch (e) {}
 
-    window.addEventListener('popstate', (e) => {
-      if (e.state && e.state.postId && articlesDB[e.state.postId]) {
-        openArticle(e.state.postId);
+      // Fallback to URL hash (#...)
+      if (!postId && window.location.hash) {
+        postId = window.location.hash.replace('#', '').replace('article-', '');
+      }
+
+      if (postId && document.getElementById('article-' + postId)) {
+        openArticle(postId);
       } else {
         showBlogHub();
       }
-    });
+    }
+
+    // Run immediately
+    checkUrlAndRender();
+
+    window.addEventListener('popstate', checkUrlAndRender);
+    window.addEventListener('hashchange', checkUrlAndRender);
 
     // --- Search & Filter Logic ---
     const filterButtons = document.querySelectorAll('.filter-btn');
