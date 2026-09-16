@@ -1,482 +1,917 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Cloudly – Modern AWS Cloud Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cloudly – Modern AWS Cloud Solutions &amp; Serverless Architecture</title>
+  <meta name="description" content="Cloudly designs, deploys, and scales enterprise-grade AWS cloud infrastructure, serverless architectures, and secure data archiving."/>
   <link rel="icon" type="image/png" href="favicon.png"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <style>
-.card {
-  display: flex;
-  flex-direction: column;
-  min-height: 300px;
-  padding: 32px;
-}
-
-.card .btn-3d {
-  margin-top: auto; /* This will push the button to the bottom */
-  align-self: flex-start; /* or center if you want it centered */
-}
-.card img {
-  width: 100%;
-  height: 180px;         /* Adjust height as needed */
-  object-fit: cover;     /* Ensures the image fills the area and is cropped if needed */
-  border-radius: 14px;   /* Optional: matches card's rounded corners */
-  margin-bottom: 20px;
-  display: block;
-}
-/* Make the About card image fill the card */
-#about .card img {
-  width: 100%;
-  height: 260px;      /* or any height you prefer */
-  object-fit: cover;
-  border-radius: 14px;
-  margin-bottom: 0;
-}
-#blog .card img {
-  width: 100%;
-  height: 260px;      /* or any height you prefer */
-  object-fit: cover;
-  border-radius: 14px;
-  margin-bottom: 0;
-}
-    :root{
-      --bg:#ffffff;
-      --bg-soft:#f5f7fa;
-      --text:#1a1a1a;
-      --text-soft:#555;
-      --accent:#0066ff;
-      --accent-soft:#0af;
-    }
-    [data-theme="dark"]{
-      --bg:#0d0d0d;
-      --bg-soft:#181818;
-      --text:#e5e5e5;
-      --text-soft:#aaa;
-      --accent:#0af;
-      --accent-soft:#0066ff;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:'Inter',sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      transition:background .4s,color .4s;
-      line-height:1.6;
-    }
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
-    header{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:20px 8%;position:fixed;top:0;width:100%;z-index:999;
-      background:rgba(255,255,255,.05);backdrop-filter:blur(12px);
-      border-bottom:1px solid rgba(255,255,255,.1);
-    }
-    [data-theme="dark"] header{background:rgba(0,0,0,.25)}
-    .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.2rem}
-    nav ul{display:flex;gap:32px;list-style:none;align-items:center}
-    .btn-3d{
-      padding:12px 28px;border:none;border-radius:50px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      color:#fff;font-weight:600;letter-spacing:.5px;
-      box-shadow:0 8px 24px rgba(0,102,255,.35);
-      transition:transform .3s,box-shadow .3s;cursor:pointer;
-    }
-    .btn-3d:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,102,255,.45)}
-    .btn-3d:active{transform:translateY(0)}
-    .hero{
-      display:flex;align-items:center;min-height:100vh;
-      padding:120px 8% 60px;
-    }
-    .hero h1{font-size:clamp(2.5rem,5vw,4rem);line-height:1.2;letter-spacing:-.02em}
-    .hero p{margin:24px 0 40px;max-width:480px;color:var(--text-soft)}
-    .hero-img{position:relative;width:100%;max-width:500px;margin:auto}
-    .parallax{transition:transform .1s ease-out}
-
-    section{padding:80px 8%}
-    .section-title{font-size:2rem;margin-bottom:40px;text-align:center}
-    .grid{display:grid;gap:32px}
-    .grid-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-    .grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .card{
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:20px;padding:32px;
-      transition:transform .3s,box-shadow .3s;
-    }
-    [data-theme="dark"] .card{background:rgba(0,0,0,.25)}
-    .card:hover{transform:translateY(-6px);box-shadow:0 12px 28px rgba(0,0,0,.12)}
-    .card img{margin-bottom:20px;width:64px;height:64px;object-fit:contain}
-
-    form{max-width:600px;margin:auto}
-    form input,form textarea{
-      width:100%;padding:14px 18px;margin-bottom:20px;
-      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
-      border-radius:8px;color:var(--text);
-    }
-    form textarea{min-height:140px;resize:vertical}
-    .footer{
-      padding:40px 8%;background:var(--bg-soft);
-      text-align:center;font-size:.9rem;color:var(--text-soft);
-    }
-    .socials{display:flex;gap:24px;justify-content:center;margin:20px 0}
-    .socials img{width:24px;height:24px;filter:invert(1)}
-
-    /* fade-up on scroll */
-    .fade-up{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
-    .fade-up.show{opacity:1;transform:none}
-
-    /* toast */
-    .toast{
-      position:fixed;top:20px;right:20px;padding:14px 22px;background:var(--accent);
-      color:#fff;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.2);
-      opacity:0;transition:opacity .4s;z-index:9999
-    }
-    /* ---------- RESPONSIVE FIXES ---------- */
-
-/* 1. NAVBAR COLLAPSE */
-@media (max-width: 992px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 12px 5%;
-  }
-  nav ul {
-    flex-direction: column;
-    width: 100%;
-    margin-top: 12px;
-    gap: 12px;
-  }
-  .logo {
-    font-size: 1.1rem;
-  }
-}
-
-/* 2. HERO STACK & SPACING */
-@media (max-width: 768px) {
-  .hero {
-    flex-direction: column-reverse;
-    text-align: center;
-    padding: 100px 5% 40px;
-    gap: 40px;
-  }
-  .hero h1 { font-size: 2.2rem; }
-  .hero p  { margin: 16px auto 24px; }
-  .hero-img {
-    margin: 0 auto;
-    max-width: 90%;
-  }
-}
-/* ---------- RESPONSIVE – PHONES ≤ 400 px ---------- */
-@media (max-width: 400px) {
-  /* 1. VERTICAL / HAMBURGER NAV */
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8px 16px;
-  }
-  .logo {
-    font-size: 1rem;
-  }
-  nav {
-    width: 100%;
-    margin-top: 8px;
-  }
-  nav ul {
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.9rem;
-  }
-
-  /* 2. HERO SPACING for 360-375 px */
-  .hero {
-    flex-direction: column-reverse;
-    text-align: center;
-    padding: 120px 16px 40px; /* 120 px top = nav + gap */
-    gap: 32px;
-  }
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-  .hero-img {
-    max-width: 90%;
-    margin: 0 auto;
-  }
-
-  /* 3. SMALLER BUTTONS & CARDS */
-  .btn-3d {
-    padding: 10px 22px;
-    font-size: 0.9rem;
-  }
-  .card {
-    padding: 20px 20px 100px;
-  }
-}
-  /* … all your existing styles … */
-
-  /* center nav links on every screen 
-  nav ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }*/
-
-  /* keep vertical stack for ≤ 400 px 
-  @media (max-width: 400px) {
-    nav ul {
-      flex-direction: column;
-      gap: 6px;
-    }
-  }*/
-  /* Hamburger button (hidden on large screens) */
-#hamburger {
-  display: none;               /* desktop: invisible */
-  flex-direction: column;
-  gap: 4px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  z-index: 1000;
-}
-#hamburger span {
-  width: 24px;
-  height: 3px;
-  background: var(--text);
-  transition: 0.3s;
-}
-@media (max-width: 1024px) {
-  #hamburger { display: flex; }      /* show only on small screens */
-  nav ul {
-    display: none;                  /* default: hidden */
-    flex-direction: column;
-    width: 100%;
-    margin-top: 8px;
-    gap: 6px;
-  }
-  nav ul.show { display: flex; }    /* toggled state */
-}
-  </style>
+  
+  <!-- CSS Design System -->
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <a href="#home" class="logo">
-      <img src="images/cloudly-logo-simplified01.png" width="32" alt="Cloudly" id="logo-img"/>
-      Cloudly
-    </a>
-    <nav>
-     <button id="hamburger" aria-label="Menu" aria-controls="navbar">
-      <span></span>
-      <span></span>
-      <span></span>
-     </button>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><button class="btn-3d" id="themeToggle">🌙</button></li>
-      </ul>
-    </nav>
+
+  <!-- Ambient Animated Glowing Background -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="aurora-orb orb-1"></div>
+    <div class="aurora-orb orb-2"></div>
+    <div class="aurora-orb orb-3"></div>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header id="main-header">
+    <div class="nav-wrapper">
+      <a href="#home" class="logo-brand" aria-label="Cloudly Home">
+        <img src="images/cloudly-logo-simplified01.png" alt="Cloudly Logo" id="nav-logo-img" width="32" height="32"/>
+        <span>Cloudly</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions (Theme Toggle + CTA) -->
+      <div class="nav-actions">
+        <!-- Interactive Theme Switcher (☀️ / 🌙) -->
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle light and dark theme" title="Toggle Light / Dark Mode">
+          <span id="theme-icon">🌙</span>
+        </button>
+
+        <a href="#contact" class="btn btn-primary" style="padding: 10px 22px; font-size: 0.88rem;">
+          Get in Touch
+        </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#home" class="mobile-link">Home <span>→</span></a>
+      <a href="#about" class="mobile-link">About <span>→</span></a>
+      <a href="#architecture" class="mobile-link">Architecture <span>→</span></a>
+      <a href="#services" class="mobile-link">Services <span>→</span></a>
+      <a href="#blog" class="mobile-link">Blog <span>→</span></a>
+      <a href="#contact" class="mobile-link">Contact <span>→</span></a>
+      <a href="https://wa.me/237696311280" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top: 10px;">
+        Chat on WhatsApp
+      </a>
+    </div>
   </header>
 
-  <!-- Hero -->
+  <!-- Hero Section -->
   <section class="hero" id="home">
-    <div>
-      <h1>Cloud Services Providers</h1>
-      <p>We build & host powerful cloud-based apps on AWS to help businesses scale smarter and faster.</p>
-      <a href="https://wa.me/237696311280" class="btn-3d">Contact Us</a>
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Hero Text Content -->
+        <div class="hero-content fade-up">
+          <div class="hero-badge">
+            <span class="status-dot"></span>
+            <span>AWS Certified Solutions Architect • Available for Projects</span>
+          </div>
+
+          <h1 class="hero-headline">
+            Cloud Services Providers: <br/>
+            <span class="gradient-text">Build &amp; Scale on AWS</span>
+          </h1>
+
+          <p class="hero-description">
+            We design, deploy, and manage enterprise-grade cloud solutions &amp; serverless architectures on AWS to help businesses scale smarter, faster, and cost-effectively.
+          </p>
+
+          <div class="hero-actions">
+            <a href="https://wa.me/237696311280" target="_blank" rel="noopener" class="btn btn-primary">
+              <span>Get Free Consultation</span>
+              <span class="btn-icon">→</span>
+            </a>
+            <a href="#services" class="btn btn-secondary">
+              <span>Explore Services</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3D Parallax Hero Card with EXACT Brand Logo -->
+        <div class="hero-visual fade-up delay-2">
+          <div class="hero-card-3d" id="heroCard3d">
+            <!-- Floating Decorative Badges -->
+            <div class="floating-pill pill-1">
+              <span>⚡ Serverless First</span>
+            </div>
+            <div class="floating-pill pill-2">
+              <span>🔒 Multi-Tier Security</span>
+            </div>
+
+            <!-- Exact Original Cloudly Logo Image -->
+            <img src="images/CLOUDLY-LOGO-full.png" 
+                 alt="Cloudly Logo" 
+                 class="hero-logo-img" 
+                 id="hero-logo-main"/>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="hero-img">
-      <img src="images/CLOUDLY-LOGO-full.png" alt="hero" class="parallax" id="hero-img"/>
   </section>
 
-  <!-- About -->
+  <!-- Metrics / Trust Stats Ribbon -->
+  <section class="metrics-section">
+    <div class="container">
+      <div class="metrics-grid">
+        <div class="metric-card fade-up delay-1">
+          <div class="metric-number">99.99%</div>
+          <div class="metric-label">High-Availability SLA</div>
+        </div>
+        <div class="metric-card fade-up delay-2">
+          <div class="metric-number">100%</div>
+          <div class="metric-label">Serverless &amp; IaC Driven</div>
+        </div>
+        <div class="metric-card fade-up delay-3">
+          <div class="metric-number">40%+</div>
+          <div class="metric-label">Avg. AWS Cost Reduction</div>
+        </div>
+        <div class="metric-card fade-up delay-4">
+          <div class="metric-number">24/7</div>
+          <div class="metric-label">Monitoring &amp; Cloud Support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
   <section id="about">
-    <h2 class="section-title fade-up">About Us</h2>
-    <div class="grid grid-2 fade-up">
-      <div>
-        <p>I’m an AWS Certified Solutions Architect helping startups & SMBs build secure, scalable, cost-effective cloud infrastructure—especially serverless.</p>
-        <p>Our mission: simplify cloud adoption with tailored, affordable AWS solutions.</p>
-        <p>We specialize in designing AWS architectures that grow with your business, without compromising on performance or security.</p>
-        <p>From initial setup to ongoing optimization, we ensure your cloud environment runs smoothly and efficiently.</p>
-        <p>Whether you're launching your first app or modernizing legacy systems, we help you navigate AWS with confidence and clarity.</p>
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">About Cloudly</span>
+        <h2 class="section-title">Architecting the Future of Cloud Infrastructure</h2>
+        <p class="section-subtitle">Delivering high-performance, cost-optimized, and security-hardened AWS architectures tailored to your business goals.</p>
       </div>
-      <div class="card">
-        <img src="images/about1.jpg" alt="about"/>
+
+      <div class="about-grid">
+        <!-- Text & Story -->
+        <div class="about-content fade-up">
+          <p>
+            I am <strong>Julien Mveng</strong>, an <strong>AWS Certified Solutions Architect</strong> helping startups and growing enterprises build secure, highly scalable, and cost-effective cloud infrastructure.
+          </p>
+          <p>
+            Our mission is simple: eliminate complexity in cloud adoption with tailored, affordable AWS serverless solutions that scale automatically as your business grows.
+          </p>
+
+          <div class="about-features">
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Event-Driven Serverless Architecture</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Zero-Downtime Database &amp; Cloud Migration</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>KMS Encryption &amp; IAM Least Privilege</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>FinOps &amp; Continuous Cost Optimization</span>
+            </div>
+          </div>
+
+          <a href="#contact" class="btn btn-primary" style="margin-top: 10px;">
+            Work With Us
+          </a>
+        </div>
+
+        <!-- Visual / Image Card -->
+        <div class="about-visual fade-up delay-2">
+          <div class="glass-card about-card">
+            <img src="images/about1.jpg" alt="Cloud Architecture Overview" class="about-img"/>
+            <div class="badge-card">
+              <div class="badge-icon">🏆</div>
+              <div class="badge-text">
+                <strong>AWS Solutions Architect</strong>
+                <span>Certified Cloud Specialist</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
+  <!-- Interactive AWS Architecture Showcase -->
+  <section id="architecture" style="background: var(--bg-secondary);">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Interactive Showcase</span>
+        <h2 class="section-title">Explore Our Cloud Architecture Patterns</h2>
+        <p class="section-subtitle">Click through our proven AWS blueprints designed for extreme resilience, ultra-low latency, and maximum security.</p>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="arch-tabs fade-up">
+        <button class="arch-tab-btn active" data-tab="serverless">Serverless Apps</button>
+        <button class="arch-tab-btn" data-tab="archiving">Secure Archiving</button>
+        <button class="arch-tab-btn" data-tab="security">Security &amp; IAM</button>
+        <button class="arch-tab-btn" data-tab="migration">Cloud Migration</button>
+      </div>
+
+      <!-- Tab Panels -->
+      <div class="glass-card architecture-showcase fade-up delay-1">
+        
+        <!-- Tab 1: Serverless -->
+        <div class="arch-content-panel active" id="tab-serverless">
+          <div class="arch-info">
+            <h3>Event-Driven Serverless Infrastructure</h3>
+            <p>
+              Scale from zero to millions of requests with zero server management. We design resilient microservices powered by AWS Lambda, API Gateway, DynamoDB, and Cognito authentication.
+            </p>
+            <div class="arch-tags">
+              <span class="arch-tag">AWS Lambda</span>
+              <span class="arch-tag">Amazon API Gateway</span>
+              <span class="arch-tag">DynamoDB</span>
+              <span class="arch-tag">Amazon Cognito</span>
+              <span class="arch-tag">CloudWatch</span>
+            </div>
+          </div>
+          <div class="arch-diagram-box">
+            <div class="diagram-step">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <strong>User Auth with Amazon Cognito</strong>
+                <span>Secure JWT tokens &amp; scoped IAM roles</span>
+              </div>
+            </div>
+            <div class="diagram-step">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <strong>API Gateway Routing &amp; Throttling</strong>
+                <span>Low-latency endpoint management &amp; WAF filter</span>
+              </div>
+            </div>
+            <div class="diagram-step">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <strong>Auto-Scaling AWS Lambda Functions</strong>
+                <span>Sub-millisecond execution &amp; event handling</span>
+              </div>
+            </div>
+            <div class="diagram-step">
+              <div class="step-num">4</div>
+              <div class="step-text">
+                <strong>DynamoDB / S3 Persistent Storage</strong>
+                <span>High availability with automated backups</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Archiving -->
+        <div class="arch-content-panel" id="tab-archiving">
+          <div class="arch-info">
+            <h3>Secure S3 Archiving &amp; Lifecycle Automation</h3>
+            <p>
+              Reduce cold-data storage costs by up to 80% while retaining instant indexing and end-to-end KMS encryption. Automated lifecycle rules transition data from S3 Standard to Glacier Deep Archive.
+            </p>
+            <div class="arch-tags">
+              <span class="arch-tag">Amazon S3</span>
+              <span class="arch-tag">S3 Glacier Deep Archive</span>
+              <span class="arch-tag">AWS KMS</span>
+              <span class="arch-tag">Pre-Signed URLs</span>
+            </div>
+          </div>
+          <div class="arch-diagram-box">
+            <div class="diagram-step">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <strong>Pre-Signed URL Generation</strong>
+                <span>Direct secure browser-to-S3 upload without exposing API keys</span>
+              </div>
+            </div>
+            <div class="diagram-step">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <strong>SSE-KMS Customer-Managed Encryption</strong>
+                <span>Military-grade data protection at rest and in transit</span>
+              </div>
+            </div>
+            <div class="diagram-step">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <strong>Automated S3 Lifecycle Tiering</strong>
+                <span>Automatic transition: Standard → Infrequent Access → Glacier</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Security -->
+        <div class="arch-content-panel" id="tab-security">
+          <div class="arch-info">
+            <h3>Enterprise Cloud Security &amp; Compliance</h3>
+            <p>
+              Fortify your cloud posture against modern threats. We enforce least-privilege IAM policies, AWS WAF rules, CloudTrail auditing, and automated GuardDuty threat detection.
+            </p>
+            <div class="arch-tags">
+              <span class="arch-tag">AWS IAM Least-Privilege</span>
+              <span class="arch-tag">AWS WAF &amp; Shield</span>
+              <span class="arch-tag">AWS GuardDuty</span>
+              <span class="arch-tag">CloudTrail &amp; Config</span>
+            </div>
+          </div>
+          <div class="arch-diagram-box">
+            <div class="diagram-step">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <strong>Zero-Trust IAM Policy Enforcement</strong>
+                <span>Granular permission boundaries &amp; mandatory MFA</span>
+              </div>
+            </div>
+            <div class="diagram-step">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <strong>AWS WAF &amp; DDoS Protection</strong>
+                <span>Automated blocking of SQLi, XSS, and malicious bots</span>
+              </div>
+            </div>
+            <div class="diagram-step">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <strong>Real-Time Threat Monitoring</strong>
+                <span>AI-powered behavioral anomaly detection via GuardDuty</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Migration -->
+        <div class="arch-content-panel" id="tab-migration">
+          <div class="arch-info">
+            <h3>Zero-Downtime AWS Cloud Migration</h3>
+            <p>
+              Migrate legacy on-premise servers and databases to modern AWS infrastructure with zero business disruption. We leverage AWS DMS, containerization (ECS/Docker), and DNS traffic shifting.
+            </p>
+            <div class="arch-tags">
+              <span class="arch-tag">AWS DMS</span>
+              <span class="arch-tag">Amazon ECS / Fargate</span>
+              <span class="arch-tag">Route 53 Weighted DNS</span>
+              <span class="arch-tag">Terraform / IaC</span>
+            </div>
+          </div>
+          <div class="arch-diagram-box">
+            <div class="diagram-step">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <strong>Readiness Assessment &amp; Cloud Mapping</strong>
+                <span>TCO analysis, dependency discovery, and IaC blueprinting</span>
+              </div>
+            </div>
+            <div class="diagram-step">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <strong>Continuous Database Replication</strong>
+                <span>Continuous sync via AWS DMS before cutover</span>
+              </div>
+            </div>
+            <div class="diagram-step">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <strong>Smooth Route 53 Cutover</strong>
+                <span>Zero-downtime DNS traffic shift with instant rollback safety</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
   <section id="services">
-    <h2 class="section-title fade-up">Our Services</h2>
-    <div class="grid grid-3 fade-up">
-      <div class="card">
-        <img src="images/s10101.png"/>
-        <h3>AWS Infrastructure Deployment</h3>
-        <p>Secure, scalable environments tailored to your needs.</p>
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">What We Offer</span>
+        <h2 class="section-title">Specialized AWS Cloud Services</h2>
+        <p class="section-subtitle">Tailored end-to-end cloud engineering solutions built to elevate your business performance and security.</p>
       </div>
-      <div class="card">
-        <img src="images/s202.png"/>
-        <h3>Serverless Solutions</h3>
-        <p>Event-driven apps that scale automatically and cut costs.</p>
-      </div>
-      <div class="card">
-        <img src="images/s303.png"/>
-        <h3>Secure Cloud Archiving</h3>
-        <p>Encrypted S3 storage with lifecycle rules.</p>
-      </div>
-      <div class="card">
-        <img src="images/s404.png"/>
-        <h3>Security & Compliance</h3>
-        <p>IAM, KMS, WAF and best-practice policies.</p>
-      </div>
-      <div class="card">
-        <img src="images/s50101.png"/>
-        <h3>Migration to AWS</h3>
-        <p>Zero-downtime lift-and-shift or refactor.</p>
-      </div>
-      <div class="card">
-        <img src="images/s50302.png"/>
-        <h3>Cloud-Native App Dev</h3>
-        <p>Full-stack apps: auth, API, storage & analytics.</p>
+
+      <div class="services-grid">
+        
+        <!-- Service 1 -->
+        <div class="glass-card service-card fade-up delay-1">
+          <div class="service-icon-wrap">
+            <img src="images/s10101.png" alt="AWS Infrastructure Deployment"/>
+          </div>
+          <h3>AWS Infrastructure Deployment</h3>
+          <p>Production-ready, highly available cloud environments configured with Terraform and CloudFormation for predictable, repeatable scaling.</p>
+          <div class="service-tags">
+            <span class="service-tag">Terraform</span>
+            <span class="service-tag">CloudFormation</span>
+            <span class="service-tag">VPC</span>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="glass-card service-card fade-up delay-2">
+          <div class="service-icon-wrap">
+            <img src="images/s202.png" alt="Serverless Solutions"/>
+          </div>
+          <h3>Serverless Solutions</h3>
+          <p>Event-driven microservices that scale automatically with your traffic demand, virtually eliminating idle server maintenance costs.</p>
+          <div class="service-tags">
+            <span class="service-tag">AWS Lambda</span>
+            <span class="service-tag">API Gateway</span>
+            <span class="service-tag">EventBridge</span>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="glass-card service-card fade-up delay-3">
+          <div class="service-icon-wrap">
+            <img src="images/s303.png" alt="Secure Cloud Archiving"/>
+          </div>
+          <h3>Secure Cloud Archiving</h3>
+          <p>Long-term compliant file archiving utilizing encrypted Amazon S3 tiers, pre-signed upload pipelines, and automated lifecycle policies.</p>
+          <div class="service-tags">
+            <span class="service-tag">Amazon S3</span>
+            <span class="service-tag">Glacier</span>
+            <span class="service-tag">AWS KMS</span>
+          </div>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="glass-card service-card fade-up delay-1">
+          <div class="service-icon-wrap">
+            <img src="images/s404.png" alt="Security &amp; Compliance"/>
+          </div>
+          <h3>Security &amp; Compliance</h3>
+          <p>Holistic cloud hardening with least-privilege IAM roles, AWS WAF, security audit logging, and continuous compliance monitoring.</p>
+          <div class="service-tags">
+            <span class="service-tag">AWS IAM</span>
+            <span class="service-tag">AWS WAF</span>
+            <span class="service-tag">GuardDuty</span>
+          </div>
+        </div>
+
+        <!-- Service 5 -->
+        <div class="glass-card service-card fade-up delay-2">
+          <div class="service-icon-wrap">
+            <img src="images/s50101.png" alt="Migration to AWS"/>
+          </div>
+          <h3>Migration to AWS</h3>
+          <p>Seamless, zero-downtime lift-and-shift or cloud-native refactoring to transition your existing workloads smoothly to AWS.</p>
+          <div class="service-tags">
+            <span class="service-tag">AWS DMS</span>
+            <span class="service-tag">EC2</span>
+            <span class="service-tag">Route 53</span>
+          </div>
+        </div>
+
+        <!-- Service 6 -->
+        <div class="glass-card service-card fade-up delay-3">
+          <div class="service-icon-wrap">
+            <img src="images/s50302.png" alt="Cloud-Native App Dev"/>
+          </div>
+          <h3>Cloud-Native App Dev</h3>
+          <p>Full-stack modern application development: authentication, REST/GraphQL APIs, distributed storage, and analytics pipelines.</p>
+          <div class="service-tags">
+            <span class="service-tag">Cognito</span>
+            <span class="service-tag">AppSync</span>
+            <span class="service-tag">CloudFront</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Blog -->
-  <section id="blog">
-    <h2 class="section-title fade-up">Latest Blog Posts</h2>
-    <div class="grid grid-2 fade-up">
-      <div class="card">
-        <img src="images/archive1.jpg"/>
-        <h3>Cloud Archiving with S3 & Lambda</h3>
-        <p>How I built a serverless archiving app using AWS services.</p>
-        <a href="blog.html?post=archiving-app" class="btn-3d">Read more</a>
+  <!-- Latest Blog Posts Section -->
+  <section id="blog" style="background: var(--bg-secondary);">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Insights &amp; Articles</span>
+        <h2 class="section-title">Latest Cloud Engineering Posts</h2>
+        <p class="section-subtitle">Deep dives and real-world architectures from our hands-on AWS production deployments.</p>
       </div>
-      <div class="card">
-        <img src="images/security3.png"/>
-        <h3>Security Best Practices for Small Teams</h3>
-        <p>IAM, encryption, backups—done right.</p>
-        <a href="blog.html?post=security-tips" class="btn-3d">Read more</a>
+
+      <div class="blog-grid">
+        
+        <!-- Post 1 -->
+        <article class="glass-card blog-card fade-up delay-1">
+          <div class="blog-img-box">
+            <img src="images/archive1.jpg" alt="Cloud Archiving with S3 &amp; Lambda" class="blog-img"/>
+            <span class="blog-badge">Serverless Archiving</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span>📅 Jan 2026</span>
+              <span>⏱️ 5 min read</span>
+            </div>
+            <h3>How I Built a Serverless Cloud Archiving App on AWS</h3>
+            <p>Step-by-step walkthrough of building a high-volume document archiving platform with S3 pre-signed URLs, Lambda, and Cognito.</p>
+            <a href="blog.html?post=archiving-app" class="btn btn-secondary" style="align-self: flex-start; padding: 10px 22px; font-size: 0.88rem;">
+              <span>Read Full Article</span>
+              <span class="btn-icon">→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Post 2 -->
+        <article class="glass-card blog-card fade-up delay-2">
+          <div class="blog-img-box">
+            <img src="images/security3.png" alt="Security Best Practices for Small Teams" class="blog-img"/>
+            <span class="blog-badge">Cloud Security</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span>📅 Feb 2026</span>
+              <span>⏱️ 4 min read</span>
+            </div>
+            <h3>Security Best Practices for Startups on AWS</h3>
+            <p>Essential cloud hardening guide: IAM least-privilege scoping, automated key rotation with KMS, and GuardDuty anomaly alerts.</p>
+            <a href="blog.html?post=security-tips" class="btn btn-secondary" style="align-self: flex-start; padding: 10px 22px; font-size: 0.88rem;">
+              <span>Read Full Article</span>
+              <span class="btn-icon">→</span>
+            </a>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- Contact Us Section -->
   <section id="contact">
-    <h2 class="section-title fade-up">Contact Us</h2>
-<form id="contactForm"
-      action="https://formsubmit.co/cloudlynetworking@gmail.com"
-      method="POST">
-  <input name="name" placeholder="Name" required />
-  <input type="email" name="email" placeholder="Email" required />
-  <input name="phone" placeholder="Phone (optional)" />
-  <textarea name="message" placeholder="How can we help?" required></textarea>
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Let's Connect</span>
+        <h2 class="section-title">Ready to Transform Your Cloud?</h2>
+        <p class="section-subtitle">Reach out today for a complimentary cloud architecture assessment or project inquiry.</p>
+      </div>
 
-  <!-- Required for FormSubmit -->
-  <input type="hidden" name="_captcha" value="false" />
-  <!-- Optional: redirect after success -->
-  <!-- <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html" /> -->
+      <div class="contact-grid">
+        
+        <!-- Contact Info Cards -->
+        <div class="contact-info-wrap fade-up">
+          <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 12px;">Get in Touch Directly</h3>
+          <p style="color: var(--text-secondary); line-height: 1.6;">
+            Have a project in mind or need assistance optimizing your AWS cloud environment? We are always ready to collaborate.
+          </p>
 
-  <button type="submit" class="btn-3d">Send Message</button>
-</form>
+          <div class="contact-info-list">
+            <!-- WhatsApp -->
+            <a href="https://wa.me/237696311280" target="_blank" rel="noopener" class="contact-info-card">
+              <div class="info-icon">💬</div>
+              <div class="info-details">
+                <strong>WhatsApp Direct</strong>
+                <span>+237 696 311 280 (Instant Chat)</span>
+              </div>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:cloudlynetworking@gmail.com" class="contact-info-card">
+              <div class="info-icon">✉️</div>
+              <div class="info-details">
+                <strong>Email Address</strong>
+                <span>cloudlynetworking@gmail.com</span>
+              </div>
+            </a>
+
+            <!-- Location -->
+            <div class="contact-info-card">
+              <div class="info-icon">📍</div>
+              <div class="info-details">
+                <strong>Headquarters</strong>
+                <span>Yaoundé, Cameroon (Global Remote)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="glass-card fade-up delay-2">
+          <form id="contactForm" class="contact-form" action="https://formsubmit.co/cloudlynetworking@gmail.com" method="POST">
+            <div class="form-group">
+              <label for="form-name">Your Full Name</label>
+              <input type="text" id="form-name" name="name" class="form-control" placeholder="e.g. Alex Johnson" required />
+            </div>
+
+            <div class="form-group">
+              <label for="form-email">Email Address</label>
+              <input type="email" id="form-email" name="email" class="form-control" placeholder="name@company.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="form-phone">Phone / WhatsApp (Optional)</label>
+              <input type="tel" id="form-phone" name="phone" class="form-control" placeholder="+1 (555) 000-0000" />
+            </div>
+
+            <div class="form-group">
+              <label for="form-message">How Can We Help You?</label>
+              <textarea id="form-message" name="message" class="form-control" placeholder="Tell us about your AWS project, requirements, or questions..." required></textarea>
+            </div>
+
+            <!-- FormSubmit Options -->
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_subject" value="New Cloudly Inquiry from Website" />
+
+            <button type="submit" class="btn btn-primary" id="submitBtn" style="width: 100%; padding: 16px;">
+              <span>Send Message</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
   </section>
+
+  <!-- Floating WhatsApp Action Button (FAB) -->
+  <a href="https://wa.me/237696311280" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="Chat with Cloudly on WhatsApp" title="Chat on WhatsApp">
+    <img src="images/whatsapp1.png" alt="WhatsApp"/>
+  </a>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
 
   <!-- Footer -->
-  <footer class="footer fade-up">
-    <p>Cameroon – Yaoundé | +237 696 311 280 | cloudlynetworking@gmail.com</p>
-    <div class="socials">
-      <a href="https://wa.me/237696311280"><img src="images/whatsapp1.png" alt="WhatsApp"/></a>
-      <a href="https://www.facebook.com/profile.php?id=61577339663126"><img src="images/fb1.png" alt="FB"/></a>
-      <a href="https://x.com/Cloudlynet"><img src="images/twitter1.png" alt="Twitter"/></a>
-      <a href="https://www.instagram.com/cloudlynetworking/"><img src="images/instagram1.png" alt="IG"/></a>
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Brand Info -->
+        <div class="footer-brand">
+          <a href="#home" class="logo-brand">
+            <img src="images/cloudly-logo-simplified01.png" alt="Cloudly" id="footer-logo-img" width="28" height="28"/>
+            <span>Cloudly</span>
+          </a>
+          <p>
+            Enterprise-grade AWS Cloud Solutions, Serverless Architectures, and Secure Cloud Migrations.
+          </p>
+          <div class="social-links">
+            <a href="https://wa.me/237696311280" target="_blank" rel="noopener" class="social-btn" aria-label="WhatsApp">
+              <img src="images/whatsapp1.png" alt="WhatsApp"/>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61577339663126" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+              <img src="images/fb1.png" alt="Facebook"/>
+            </a>
+            <a href="https://x.com/Cloudlynet" target="_blank" rel="noopener" class="social-btn" aria-label="Twitter">
+              <img src="images/twitter1.png" alt="Twitter"/>
+            </a>
+            <a href="https://www.instagram.com/cloudlynetworking/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+              <img src="images/instagram1.png" alt="Instagram"/>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Julien</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="footer-col">
+          <h4>Cloud Services</h4>
+          <ul class="footer-links">
+            <li><a href="#services">Serverless Apps</a></li>
+            <li><a href="#services">AWS Deployment</a></li>
+            <li><a href="#services">Cloud Archiving</a></li>
+            <li><a href="#services">Security &amp; IAM</a></li>
+            <li><a href="#services">AWS Migration</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="footer-col">
+          <h4>Direct Contact</h4>
+          <ul class="footer-links">
+            <li><a href="https://wa.me/237696311280">+237 696 311 280</a></li>
+            <li><a href="mailto:cloudlynetworking@gmail.com">cloudlynetworking@gmail.com</a></li>
+            <li><span style="color: var(--text-muted); font-size: 0.9rem;">Yaoundé, Cameroon</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Cloudly. Designed &amp; Architected by Julien Mveng. All rights reserved.</p>
+      </div>
     </div>
-    <p>&copy; 2026 Cloudly – Designed by Julien Mveng</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Interactive JavaScript -->
   <script>
-    /* Theme Toggle */
-    const btn = document.getElementById('themeToggle');
+    // --- Theme Switcher Logic ---
+    const themeBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('theme-icon');
     const root = document.documentElement;
-    let userChoice = localStorage.getItem('theme');
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-function updateImages() {
-  // Logo
-  const logoImg = document.getElementById('logo-img');
-  if (logoImg) {
-    const lightLogo = 'images/cloudly-logo-simplified01.png';
-    const darkLogo = 'images/cloudly-logo-simplified02.png';
-    logoImg.src = root.getAttribute('data-theme') === 'dark' ? darkLogo : lightLogo;
-  }
-  // Hero
-  const heroImg = document.getElementById('hero-img');
-  if (heroImg) {
-    const lightHero = 'images/CLOUDLY-LOGO-full.png';
-    const darkHero = 'images/CLOUDLY-LOGO---Dark.png';
-    heroImg.src = root.getAttribute('data-theme') === 'dark' ? darkHero : lightHero;
-  }
-}
+    const navLogoImg = document.getElementById('nav-logo-img');
+    const footerLogoImg = document.getElementById('footer-logo-img');
+    const heroLogoImg = document.getElementById('hero-logo-main');
 
-// Update your theme toggle to call updateImages instead of updateLogo:
-function applyTheme(t){
-  root.setAttribute('data-theme', t);
-  btn.textContent = t==='dark' ? '☀️' : '🌙';
-  updateImages();
-}
-if(userChoice) applyTheme(userChoice);
-else applyTheme(media.matches?'dark':'light');
-    media.addEventListener('change', e=>{
-      if(!localStorage.getItem('theme')) applyTheme(e.matches?'dark':'light');
-    });
-    btn.onclick=()=>{
-      const next = root.getAttribute('data-theme')==='dark'?'light':'dark';
-      applyTheme(next); localStorage.setItem('theme',next);
-    };
-
-    /* Parallax hero */
-    const heroImg = document.querySelector('.parallax');
-    document.addEventListener('mousemove', e=>{
-      const {innerWidth,innerHeight} = window;
-      const x = (e.clientX/innerWidth - .5) * 20;
-      const y = (e.clientY/innerHeight - .5) * 20;
-      heroImg.style.transform = `translate(${x}px,${y}px)`;
-    });
-
-    /* Scroll fade-up */
-    const io = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting) e.target.classList.add('show');
-      });
-    },{threshold:.15});
-    document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
-
-    /* Toast & Form */
-    function toast(msg){
-      const t=document.createElement('div');
-      t.className='toast'; t.textContent=msg;
-      document.body.appendChild(t);
-      requestAnimationFrame(()=>t.style.opacity=1);
-      setTimeout(()=>{t.style.opacity=0;setTimeout(()=>t.remove(),400)},3000);
+    function updateBrandLogos(theme) {
+      const isDark = theme === 'dark';
+      
+      // Update Navbar & Footer simplified logos
+      if (navLogoImg) {
+        navLogoImg.src = isDark ? 'images/cloudly-logo-simplified02.png' : 'images/cloudly-logo-simplified01.png';
+      }
+      if (footerLogoImg) {
+        footerLogoImg.src = isDark ? 'images/cloudly-logo-simplified02.png' : 'images/cloudly-logo-simplified01.png';
+      }
+      
+      // Exact Cloudly Logo (handled seamlessly with dark-mode filter in CSS)
+      if (heroLogoImg) {
+        heroLogoImg.src = 'images/CLOUDLY-LOGO-full.png';
+      }
     }
-    document.getElementById('contactForm').addEventListener('submit',e=>{
-      e.preventDefault();
-      fetch('https://formsubmit.co/ajax/cloudlynetworking@gmail.com',{
-        method:'POST',
-        body:new FormData(e.target)
-      }).then(r=>{
-        if(r.ok){toast('✅ Message sent!'); e.target.reset();}
-        else toast('❌ Error, try again.');
+
+    function setTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('cloudly_theme', theme);
+      updateBrandLogos(theme);
+    }
+
+    // Initialize Theme
+    const savedTheme = localStorage.getItem('cloudly_theme') || 
+                       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    });
+
+    // --- Header Scroll Effect & Scrollspy ---
+    const header = document.getElementById('main-header');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section[id]');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+
+      // Scrollspy
+      let currentSection = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 120;
+        const height = section.offsetHeight;
+        if (window.scrollY >= top && window.scrollY < top + height) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
       });
     });
-    const hamburger = document.getElementById('hamburger');
-    const navMenu   = document.querySelector('nav ul');
-    hamburger.addEventListener('click', () => navMenu.classList.toggle('show'));
+
+    // --- Mobile Menu Toggle ---
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      mobileNav.classList.toggle('open');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('active');
+        mobileNav.classList.remove('open');
+      });
+    });
+
+    // --- 3D Parallax Tilt on Hero Card ---
+    const heroCard = document.getElementById('heroCard3d');
+    if (heroCard && window.matchMedia('(pointer: fine)').matches) {
+      document.addEventListener('mousemove', (e) => {
+        const rect = heroCard.getBoundingClientRect();
+        const cardCenterX = rect.left + rect.width / 2;
+        const cardCenterY = rect.top + rect.height / 2;
+        
+        const mouseX = e.clientX - cardCenterX;
+        const mouseY = e.clientY - cardCenterY;
+        
+        const rotateX = -(mouseY / window.innerHeight) * 16;
+        const rotateY = (mouseX / window.innerWidth) * 16;
+        
+        heroCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+
+      document.addEventListener('mouseleave', () => {
+        heroCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+      });
+    }
+
+    // --- Interactive Architecture Tabs ---
+    const tabButtons = document.querySelectorAll('.arch-tab-btn');
+    const tabPanels = document.querySelectorAll('.arch-content-panel');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+        
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        
+        btn.classList.add('active');
+        const targetPanel = document.getElementById(`tab-${targetTab}`);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+        }
+      });
+    });
+
+    // --- Scroll Fade-Up Intersection Observer ---
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // --- Toast Notifications ---
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span> <span>${message}</span>`;
+      container.appendChild(toast);
+      
+      requestAnimationFrame(() => toast.classList.add('show'));
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+      }, 4000);
+    }
+
+    // --- Contact Form AJAX Submission ---
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = `<span>Sending...</span>`;
+        submitBtn.disabled = true;
+
+        try {
+          const response = await fetch('https://formsubmit.co/ajax/cloudlynetworking@gmail.com', {
+            method: 'POST',
+            body: new FormData(contactForm)
+          });
+          
+          if (response.ok) {
+            showToast('Message sent successfully! We will contact you shortly.', 'success');
+            contactForm.reset();
+          } else {
+            showToast('Unable to send message. Please try again or reach out via WhatsApp.', 'error');
+          }
+        } catch (err) {
+          showToast('Network error. Please reach out via WhatsApp or email directly.', 'error');
+        } finally {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    }
   </script>
 </body>
 </html>
