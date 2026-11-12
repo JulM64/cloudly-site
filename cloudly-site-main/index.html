@@ -89,6 +89,19 @@
       <div class="cloud-layer cloud-layer-front" data-speed="fast">
         <svg class="cloud" aria-hidden="true"><use href="#cloud-shape-5"/></svg>
       </div>
+      <!-- Floating particles for atmospheric depth -->
+      <div class="particle-layer" aria-hidden="true">
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+      </div>
     </div>
 
     <!-- SVG Definitions: cloud shapes + gradient -->
@@ -141,29 +154,50 @@
           </div>
         </div>
 
+        <!-- Scroll Indicator -->
+        <div class="hero-scroll" aria-hidden="true">
+          <span>Scroll</span>
+          <svg class="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+          </svg>
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- Metrics / Trust Stats Ribbon -->
-  <section class="metrics-section">
+  <section class="metrics-section" aria-labelledby="metrics-title">
+    <h2 id="metrics-title" class="sr-only">Key Metrics</h2>
     <div class="container">
       <div class="metrics-grid">
         <div class="metric-card fade-up delay-1">
+          <div class="metric-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
           <div class="metric-number">99.99%</div>
           <div class="metric-label">High-Availability SLA</div>
         </div>
         <div class="metric-card fade-up delay-2">
+          <div class="metric-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 16 17 22 7"/><line x1="10" y1="11" x2="10" y2="7"/></svg>
+          </div>
           <div class="metric-number">100%</div>
-          <div class="metric-label">Serverless &amp; IaC Driven</div>
+          <div class="metric-label">Serverless & IaC Driven</div>
         </div>
         <div class="metric-card fade-up delay-3">
+          <div class="metric-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
           <div class="metric-number">40%+</div>
           <div class="metric-label">Avg. AWS Cost Reduction</div>
         </div>
         <div class="metric-card fade-up delay-4">
+          <div class="metric-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
           <div class="metric-number">24/7</div>
-          <div class="metric-label">Monitoring &amp; Cloud Support</div>
+          <div class="metric-label">Monitoring & Cloud Support</div>
         </div>
       </div>
     </div>
@@ -236,6 +270,15 @@
         <span class="section-tag">Interactive Showcase</span>
         <h2 class="section-title">Explore Our Cloud Architecture Patterns</h2>
         <p class="section-subtitle">Click through our proven AWS blueprints designed for extreme resilience, ultra-low latency, and maximum security.</p>
+        <div style="display: flex; gap: var(--space-4); align-items: center;">
+          <a href="https://wa.me/237696311280" target="_blank" rel="noopener" style="font-size: 0.85rem;">Privacy</a>
+          <a href="https://wa.me/237696311280" target="_blank" rel="noopener" style="font-size: 0.85rem;">Terms</a>
+          <a href="#home" class="back-to-top" aria-label="Back to top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 15l-6-6-6 6"/>
+            </svg>
+          </a>
+        </div>
       </div>
 
       <!-- Tab Buttons -->
@@ -523,6 +566,15 @@
           </div>
           <h3>Cloud-Native App Dev</h3>
           <p>Full-stack modern application development: authentication, REST/GraphQL APIs, distributed storage, and analytics pipelines.</p>
+        <div style="display: flex; gap: var(--space-4); align-items: center;">
+          <a href="https://wa.me/237696311280" target="_blank" rel="noopener" style="font-size: 0.85rem;">Privacy</a>
+          <a href="https://wa.me/237696311280" target="_blank" rel="noopener" style="font-size: 0.85rem;">Terms</a>
+          <a href="#home" class="back-to-top" aria-label="Back to top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 15l-6-6-6 6"/>
+            </svg>
+          </a>
+        </div>
           <div class="service-tags">
             <span class="service-tag">Cognito</span>
             <span class="service-tag">AppSync</span>
@@ -751,7 +803,17 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2026 Cloudly. Designed &amp; Architected by Julien Mveng. All rights reserved.</p>
+        <p>&copy; 2026 Cloudly. Designed & Architected by Julien Mveng. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="https://wa.me/237696311280" target="_blank" rel="noopener">Privacy Policy</a>
+          <span aria-hidden="true">&middot;</span>
+          <a href="https://wa.me/237696311280" target="_blank" rel="noopener">Terms of Service</a>
+        </div>
+        <a href="#home" class="back-to-top" aria-label="Back to top">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 15l-6-6-6 6"/>
+          </svg>
+        </a>
       </div>
     </div>
   </footer>
