@@ -135,9 +135,9 @@
   --hero-description-leading: 1.7;
 
   /* Animation durations - slow, elegant */
-  --cloud-duration-slow: 160s;
-  --cloud-duration-mid:  110s;
-  --cloud-duration-fast: 80s;
+  --cloud-duration-slow: 60s;
+  --cloud-duration-mid:  45s;
+  --cloud-duration-fast: 30s;
   --fade-duration: 0.9s;
   --fade-stagger: 0.12s;
   --micro-duration: 0.3s;
@@ -1252,7 +1252,7 @@ textarea {
   fill: var(--cloud-fill);
   stroke: var(--cloud-stroke);
   stroke-width: 0.5;
-  opacity: 0;
+  opacity: var(--cloud-opacity-start, 0.10); /* Base opacity so visible immediately */
   animation: cloud-drift var(--cloud-duration) ease-in-out infinite alternate;
   will-change: transform, opacity, filter;
   transform-origin: center center;
