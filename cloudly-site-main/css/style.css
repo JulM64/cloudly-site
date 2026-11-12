@@ -281,7 +281,7 @@
   --sky-mid:   #08111E;
   --sky-end:   #0B1628;
 
-  --cloud-fill: rgba(214, 232, 226, 0.1);
+  --cloud-fill: rgba(214, 232, 226, 0.35);
   --cloud-stroke: rgba(77, 163, 255, 0.06);
   --cloud-opacity-back: 0.02;
   --cloud-opacity-mid: 0.04;
@@ -1303,9 +1303,9 @@ textarea {
 [data-theme="light"] .cloud-layer-front .cloud  { --cloud-opacity-start: 0.12; --cloud-opacity-mid: 0.20; --cloud-opacity-end: 0.12; }
 
 /* Dark mode cloud opacity adjustments - visible but elegant */
-[data-theme="dark"] .cloud-layer-back .cloud   { --cloud-opacity-start: 0.06; --cloud-opacity-mid: 0.10; --cloud-opacity-end: 0.06; }
-[data-theme="dark"] .cloud-layer-mid .cloud    { --cloud-opacity-start: 0.08; --cloud-opacity-mid: 0.14; --cloud-opacity-end: 0.08; }
-[data-theme="dark"] .cloud-layer-front .cloud  { --cloud-opacity-start: 0.10; --cloud-opacity-mid: 0.18; --cloud-opacity-end: 0.10; }
+[data-theme="dark"] .cloud-layer-back .cloud   { --cloud-opacity-start: 0.08; --cloud-opacity-mid: 0.14; --cloud-opacity-end: 0.08; }
+[data-theme="dark"] .cloud-layer-mid .cloud    { --cloud-opacity-start: 0.12; --cloud-opacity-mid: 0.20; --cloud-opacity-end: 0.12; }
+[data-theme="dark"] .cloud-layer-front .cloud  { --cloud-opacity-start: 0.15; --cloud-opacity-mid: 0.25; --cloud-opacity-end: 0.15; }
 
 /* Floating particles / sparkles - enhanced */
 .particle-layer {
@@ -2854,6 +2854,89 @@ footer::after {
 
 .blog-hero {
   padding: calc(var(--header-h) + 64px) 0 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    var(--sky-start) 0%,
+    var(--sky-mid) 50%,
+    var(--sky-end) 100%
+  );
+  z-index: 0;
+}
+
+.sky-clouds {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sky-clouds .cloud {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--cloud-fill);
+  filter: blur(30px);
+  opacity: 0.15;
+  animation: cloud-float 20s ease-in-out infinite;
+}
+
+.sky-clouds .cloud-1 {
+  top: -4%;
+  left: -28%;
+  width: 380px;
+  height: 150px;
+  animation-delay: 0s;
+}
+
+.sky-clouds .cloud-2 {
+  top: 24%;
+  right: -30%;
+  width: 470px;
+  height: 180px;
+  animation-delay: -5s;
+}
+
+.sky-clouds .cloud-3 {
+  left: 8%;
+  bottom: -4%;
+  width: 320px;
+  height: 120px;
+  animation-delay: -10s;
+}
+
+.sky-clouds .cloud-4 {
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 100px;
+  animation-delay: -15s;
+  opacity: 0.1;
+}
+
+@keyframes cloud-float {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.15; }
+  50% { transform: translate3d(20px, -15px, 0) scale(1.05); opacity: 0.2; }
+}
+
+[data-theme="dark"] .sky-clouds .cloud {
+  background: var(--cloud-fill);
+  opacity: 0.12;
+}
+
+[data-theme="dark"] .sky-clouds .cloud-4 {
+  opacity: 0.08;
+}
+
+.blog-hero .container {
+  position: relative;
+  z-index: 1;
 }
 
 .blog-hero .section-header {
