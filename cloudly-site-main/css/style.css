@@ -1199,6 +1199,27 @@ textarea {
     radial-gradient(ellipse 60% 40% at 10% 90%, rgba(0, 102, 204, 0.05) 0%, transparent 40%);
   pointer-events: none;
   z-index: 0;
+  animation: atmosphere-breathe 20s ease-in-out infinite alternate;
+}
+
+@keyframes atmosphere-breathe {
+  0%   { opacity: 0.8; transform: scale(1); }
+  50%  { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.8; transform: scale(1); }
+}
+
+/* Soft cloud glow layer - adds atmospheric haze */
+.hero-atmosphere::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 102, 204, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 102, 204, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
 }
 
 /* Subtle grid pattern overlay for premium texture */
@@ -1233,8 +1254,25 @@ textarea {
   stroke-width: 0.5;
   opacity: 0;
   animation: cloud-drift var(--cloud-duration) ease-in-out infinite alternate;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
   transform-origin: center center;
+  filter: drop-shadow(0 4px 12px rgba(0, 102, 204, 0.08)) drop-shadow(0 8px 24px rgba(0, 102, 204, 0.04));
+  transition: filter 0.3s ease;
+}
+
+/* Enhanced glow on front layer clouds */
+.cloud-layer-front svg.cloud {
+  filter: drop-shadow(0 6px 16px rgba(0, 102, 204, 0.12)) drop-shadow(0 12px 32px rgba(0, 102, 204, 0.06));
+}
+
+/* Mid layer clouds - softer glow */
+.cloud-layer-mid svg.cloud {
+  filter: drop-shadow(0 3px 10px rgba(0, 102, 204, 0.06)) drop-shadow(0 6px 20px rgba(0, 102, 204, 0.03));
+}
+
+/* Back layer clouds - subtle depth */
+.cloud-layer-back svg.cloud {
+  filter: drop-shadow(0 2px 8px rgba(0, 102, 204, 0.04));
 }
 
 .cloud-layer[data-speed="slow"]   .cloud { --cloud-duration: var(--cloud-duration-slow); }
@@ -1249,22 +1287,24 @@ textarea {
 .cloud-layer-front .cloud:nth-child(1) { animation-delay: -70s, 2s; }
 
 @keyframes cloud-drift {
-  0%   { transform: translate3d(-2.5%, -0.5%, 0) scale(0.99); opacity: var(--cloud-opacity-start, 0.10); }
-  50%  { opacity: var(--cloud-opacity-mid, 0.16); }
-  100% { transform: translate3d(2.5%, 0.5%, 0) scale(1.01); opacity: var(--cloud-opacity-end, 0.10); }
+  0%   { transform: translate3d(-3%, -1%, 0) scale(0.98) rotate(-0.5deg); opacity: var(--cloud-opacity-start, 0.10); }
+  25%  { transform: translate3d(-1%, 0.5%, 0) scale(1.01) rotate(0.2deg); opacity: var(--cloud-opacity-mid, 0.16); }
+  50%  { transform: translate3d(1.5%, -0.3%, 0) scale(1.02) rotate(0.5deg); opacity: var(--cloud-opacity-mid, 0.16); }
+  75%  { transform: translate3d(2%, 0.8%, 0) scale(1.01) rotate(0.1deg); opacity: var(--cloud-opacity-mid, 0.16); }
+  100% { transform: translate3d(3%, 1%, 0) scale(1.03) rotate(-0.3deg); opacity: var(--cloud-opacity-end, 0.10); }
 }
 
-/* Light mode cloud opacity adjustments - ultra subtle for premium feel */
-[data-theme="light"] .cloud-layer-back .cloud   { --cloud-opacity-start: 0.015; --cloud-opacity-mid: 0.03; --cloud-opacity-end: 0.015; }
-[data-theme="light"] .cloud-layer-mid .cloud    { --cloud-opacity-start: 0.02; --cloud-opacity-mid: 0.04; --cloud-opacity-end: 0.02; }
-[data-theme="light"] .cloud-layer-front .cloud  { --cloud-opacity-start: 0.025; --cloud-opacity-mid: 0.05; --cloud-opacity-end: 0.025; }
+/* Light mode cloud opacity adjustments - visible but elegant */
+[data-theme="light"] .cloud-layer-back .cloud   { --cloud-opacity-start: 0.08; --cloud-opacity-mid: 0.12; --cloud-opacity-end: 0.08; }
+[data-theme="light"] .cloud-layer-mid .cloud    { --cloud-opacity-start: 0.10; --cloud-opacity-mid: 0.16; --cloud-opacity-end: 0.10; }
+[data-theme="light"] .cloud-layer-front .cloud  { --cloud-opacity-start: 0.12; --cloud-opacity-mid: 0.20; --cloud-opacity-end: 0.12; }
 
-/* Dark mode cloud opacity adjustments - ultra subtle for premium feel */
-[data-theme="dark"] .cloud-layer-back .cloud   { --cloud-opacity-start: 0.01; --cloud-opacity-mid: 0.025; --cloud-opacity-end: 0.01; }
-[data-theme="dark"] .cloud-layer-mid .cloud    { --cloud-opacity-start: 0.015; --cloud-opacity-mid: 0.035; --cloud-opacity-end: 0.015; }
-[data-theme="dark"] .cloud-layer-front .cloud  { --cloud-opacity-start: 0.02; --cloud-opacity-mid: 0.045; --cloud-opacity-end: 0.02; }
+/* Dark mode cloud opacity adjustments - visible but elegant */
+[data-theme="dark"] .cloud-layer-back .cloud   { --cloud-opacity-start: 0.06; --cloud-opacity-mid: 0.10; --cloud-opacity-end: 0.06; }
+[data-theme="dark"] .cloud-layer-mid .cloud    { --cloud-opacity-start: 0.08; --cloud-opacity-mid: 0.14; --cloud-opacity-end: 0.08; }
+[data-theme="dark"] .cloud-layer-front .cloud  { --cloud-opacity-start: 0.10; --cloud-opacity-mid: 0.18; --cloud-opacity-end: 0.10; }
 
-/* Floating particles / sparkles */
+/* Floating particles / sparkles - enhanced */
 .particle-layer {
   position: absolute;
   inset: 0;
@@ -1275,33 +1315,39 @@ textarea {
 
 .particle {
   position: absolute;
-  width: 3px;
-  height: 3px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background: var(--accent);
   opacity: 0;
   animation: particle-float var(--particle-duration, 8s) ease-in-out infinite;
   will-change: transform, opacity;
+  filter: blur(0.5px);
 }
 
-.particle:nth-child(1)  { left: 10%; top: 20%; --particle-duration: 10s; animation-delay: 0s; }
-.particle:nth-child(2)  { left: 25%; top: 60%; --particle-duration: 12s; animation-delay: -2s; }
-.particle:nth-child(3)  { left: 45%; top: 15%; --particle-duration: 9s;  animation-delay: -4s; }
-.particle:nth-child(4)  { left: 65%; top: 45%; --particle-duration: 11s; animation-delay: -6s; }
-.particle:nth-child(5)  { left: 85%; top: 30%; --particle-duration: 8s;  animation-delay: -8s; }
-.particle:nth-child(6)  { left: 15%; top: 75%; --particle-duration: 13s; animation-delay: -1s; }
-.particle:nth-child(7)  { left: 35%; top: 80%; --particle-duration: 7s;  animation-delay: -3s; }
-.particle:nth-child(8)  { left: 55%; top: 5%;  --particle-duration: 14s; animation-delay: -5s; }
-.particle:nth-child(9)  { left: 75%; top: 70%; --particle-duration: 9s;  animation-delay: -7s; }
-.particle:nth-child(10) { left: 90%; top: 50%; --particle-duration: 10s; animation-delay: -9s; }
+/* Particle color variations */
+.particle:nth-child(1)  { left: 10%; top: 20%; --particle-duration: 10s; animation-delay: 0s; background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+.particle:nth-child(2)  { left: 25%; top: 60%; --particle-duration: 12s; animation-delay: -2s; background: #4DA3FF; box-shadow: 0 0 6px #4DA3FF; }
+.particle:nth-child(3)  { left: 45%; top: 15%; --particle-duration: 9s;  animation-delay: -4s; background: #7BB8FF; box-shadow: 0 0 6px #7BB8FF; }
+.particle:nth-child(4)  { left: 65%; top: 45%; --particle-duration: 11s; animation-delay: -6s; background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+.particle:nth-child(5)  { left: 85%; top: 30%; --particle-duration: 8s;  animation-delay: -8s; background: #4DA3FF; box-shadow: 0 0 6px #4DA3FF; }
+.particle:nth-child(6)  { left: 15%; top: 75%; --particle-duration: 13s; animation-delay: -1s; background: #7BB8FF; box-shadow: 0 0 6px #7BB8FF; }
+.particle:nth-child(7)  { left: 35%; top: 80%; --particle-duration: 7s;  animation-delay: -3s; background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+.particle:nth-child(8)  { left: 55%; top: 5%;  --particle-duration: 14s; animation-delay: -5s; background: #4DA3FF; box-shadow: 0 0 6px #4DA3FF; }
+.particle:nth-child(9)  { left: 75%; top: 70%; --particle-duration: 9s;  animation-delay: -7s; background: #7BB8FF; box-shadow: 0 0 6px #7BB8FF; }
+.particle:nth-child(10) { left: 90%; top: 50%; --particle-duration: 10s; animation-delay: -9s; background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+.particle:nth-child(11) { left: 20%; top: 35%; --particle-duration: 11s; animation-delay: -11s; background: #4DA3FF; box-shadow: 0 0 6px #4DA3FF; }
+.particle:nth-child(12) { left: 70%; top: 25%; --particle-duration: 8s;  animation-delay: -13s; background: #7BB8FF; box-shadow: 0 0 6px #7BB8FF; }
+.particle:nth-child(13) { left: 5%;  top: 55%; --particle-duration: 12s; animation-delay: -9s;  background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+.particle:nth-child(14) { left: 95%; top: 80%; --particle-duration: 10s; animation-delay: -7s;  background: #4DA3FF; box-shadow: 0 0 6px #4DA3FF; }
+.particle:nth-child(15) { left: 40%; top: 50%; --particle-duration: 9s;  animation-delay: -5s;  background: #7BB8FF; box-shadow: 0 0 6px #7BB8FF; }
 
 @keyframes particle-float {
-  0%   { transform: translate3d(0, 0, 0) scale(0.5); opacity: 0; }
-  15%  { opacity: 0.4; }
-  30%  { transform: translate3d(-10px, -20px, 0) scale(1); opacity: 0.6; }
-  60%  { transform: translate3d(10px, -40px, 0) scale(1.2); opacity: 0.4; }
-  85%  { opacity: 0.2; }
-  100% { transform: translate3d(0, -60px, 0) scale(0.5); opacity: 0; }
+  0%   { transform: translate3d(0, 0, 0) scale(0.3); opacity: 0; }
+  10%  { opacity: 0.3; }
+  25%  { transform: translate3d(-15px, -25px, 0) scale(1); opacity: 0.7; }
+  50%  { transform: translate3d(10px, -45px, 0) scale(1.3); opacity: 0.5; }
+  75%  { transform: translate3d(-8px, -60px, 0) scale(1.1); opacity: 0.3; }
+  100% { transform: translate3d(5px, -80px, 0) scale(0.3); opacity: 0; }
 }
 
 /* SVG definitions container */
@@ -1366,6 +1412,8 @@ textarea {
   .hero-logo-img { transition: none; }
   .hero-frame-accent { transition: none; }
   .particle { animation: none !important; opacity: 0 !important; }
+  .particle-layer { display: none !important; }
+  .hero-atmosphere::before { animation: none !important; }
 }
 
 /* --- Hero Responsive --- */
